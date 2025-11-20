@@ -1,0 +1,48 @@
+[
+  {
+    "nombre": "Trasgo",
+    "avatar": "trasgo.png",
+    "nivelAtaque": 10,
+    "puntosVida": 50,
+    "experiencia": 15
+  },
+  {
+    "nombre": "Esqueleto Guerrero",
+    "avatar": "esqueleto.png",
+    "nivelAtaque": 12,
+    "puntosVida": 60,
+    "experiencia": 18
+  },
+  {
+    "nombre": "Lobo de las Sombras",
+    "avatar": "lobo.png",
+    "nivelAtaque": 15,
+    "puntosVida": 45,
+    "experiencia": 20
+  },
+  {
+    "nombre": "Titán de Hielo",
+    "avatar": "titan_hielo.png",
+    "nivelAtaque": 50,
+    "puntosVida": 650,
+    "experiencia": 600,
+    "multiplicadorDanio": 2.8
+  },
+  {
+    "nombre": "Guardián de Acero",
+    "avatar": "guardian.png",
+    "nivelAtaque": 48,
+    "puntosVida": 700,
+    "experiencia": 550,
+    "multiplicadorDanio": 2.1
+  },
+  {
+    "nombre": "Cíclope Ancestral",
+    "avatar": "ciclope.png",
+    "nivelAtaque": 55,
+    "puntosVida": 600,
+    "experiencia": 700,
+    "multiplicadorDanio": 2.4
+  }
+  
+]
