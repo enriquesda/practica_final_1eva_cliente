@@ -1,10 +1,9 @@
-import { readFileSync } from "fs";
-import { Producto } from "./producto.js";
-
-const datos = JSON.parse(readFileSync("./productos.json", "utf8"));
+import { Producto } from "../recursos/Producto.js";
+import datos from "../datos/productos.js"; 
 
 const productos = datos.map(
-  p => new Producto(p.nombre, p.imagen, p.precio, p.rareza, p.tipo, p.bonus)
+  ({nombre, imagen, precio, rareza, tipo, bonus}) => 
+    new Producto(nombre, imagen, precio, rareza, tipo, bonus)
 );
 
 function filtrarPorTipo(tipo) {
@@ -26,6 +25,8 @@ function aplicarDescuentoPorRareza(rareza, porcentaje) {
 function buscarProducto(nombre) {
   return productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
 }
+
+
 
 export const Mercado = {
   productos,

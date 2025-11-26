@@ -16,7 +16,8 @@ export class Jugador {
     }
 
     aniadirObjeto(objeto) {
-        this.inventario.push(objeto); 
+        const auxObjeto = objeto.clonar();
+        this.inventario.push(auxObjeto);
         this.actualizarEstadisticas();
     }
 
@@ -41,13 +42,13 @@ export class Jugador {
         });
     }
 
-    actualizarEstadisticas(){
+    actualizarEstadisticas() {
         this.obtenerVidaTotal();
         this.obtenerDefensaTotal();
         this.obtenerAtaqueTotal();
     }
 
-    sumarPuntos(puntos){
+    sumarPuntos(puntos) {
         this.puntos += puntos
     }
 }

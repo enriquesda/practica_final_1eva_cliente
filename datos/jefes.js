@@ -1,25 +1,4 @@
-[
-  {
-    "nombre": "Trasgo",
-    "avatar": "trasgo.png",
-    "nivelAtaque": 10,
-    "puntosVida": 50,
-    "experiencia": 15
-  },
-  {
-    "nombre": "Esqueleto Guerrero",
-    "avatar": "esqueleto.png",
-    "nivelAtaque": 12,
-    "puntosVida": 60,
-    "experiencia": 18
-  },
-  {
-    "nombre": "Lobo de las Sombras",
-    "avatar": "lobo.png",
-    "nivelAtaque": 15,
-    "puntosVida": 45,
-    "experiencia": 20
-  },
+export default[
   {
     "nombre": "Titán de Hielo",
     "avatar": "titan_hielo.png",
@@ -44,5 +23,4 @@
     "experiencia": 700,
     "multiplicadorDanio": 2.4
   }
-  
 ]

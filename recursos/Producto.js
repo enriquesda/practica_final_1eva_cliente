@@ -12,12 +12,12 @@ export class Producto {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precio = precio;
-        if (rarezaProductos.includes(rareza.LowerCase())) {
+        if (rarezaProductos.includes(rareza.toLowerCase())) {
             this.rareza = rareza;
         } else {
             this.rareza = 'comun';
         }
-        if (tipoProductos.includes(tipo.LowerCase())) {
+        if (tipoProductos.includes(tipo.toLowerCase())) {
             this.tipo = tipo;
         } else {
             this.tipo = 'consumible';
@@ -49,6 +49,17 @@ export class Producto {
             this.bonus
         );
         return copia;
+    }
+
+    clonar() {
+        return new Producto(
+            this.nombre,
+            this.imagen,
+            this.precio,
+            this.rareza,
+            this.tipo,
+            this.bonus
+        );
     }
 
 
