@@ -15,7 +15,7 @@ export default[
   },
   {
     "nombre": "Lobo de las Sombras",
-    "avatar": "lobo.png",
+    "avatar": "lobo.jpg",
     "nivelAtaque": 15,
     "puntosVida": 45,
     "experiencia": 20

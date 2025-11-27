@@ -1,7 +1,7 @@
 import { nivelAtaqueEnemigos, vidaEnemigos, experienciaEnemigos,multiplicadorDanioJefe } from "./constants.js";
 import { Enemigos } from "./Enemigos.js";
 
-export class Jefe extends Enemigos {
+export class Jefes extends Enemigos {
     constructor(
         nombre,
         avatar,

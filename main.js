@@ -1,19 +1,64 @@
 import { Mercado } from './modulos/Mercado.js';
-
+import { combate } from './modulos/Batalla.js';
 import { Producto } from './recursos/Producto.js';
-import { Jugador } from './datos/Jugador.js';
+import { Jugador } from './recursos/Jugador.js';
+import { Enemigos } from './recursos/Enemigos.js';
+import { Jefes } from './recursos/Jefes.js';
+import enemigos from "../datos/enemigos.js";
+import jefes from "../datos/jefes.js";
 
 let productos = Mercado.productos;
-let inventario = []; 
+let inventario = [];
 // Constante para el tamaño máximo de la barra rápida (ej. 9 slots)
-const MAX_SLOTS = 9; 
+const MAX_SLOTS = 9;
 const inventoryContainer = document.getElementById('inventory-container');
 const jugador = new Jugador('Cacharro', '/imagenes/personaje.png')
 const miFooter = document.querySelector('footer');
-const escenasConFooter = ['scene-2','scene-3'];
+const escenasConFooter = ['scene-2', 'scene-3'];
 
 
-//escena 1
+
+////////////////////////////////////////////////////////////////////////////
+//Cargamos a los enemigos y jefes , creamos una funcion para solo obtener alguno de ellos
+////////////////////////////////////////////////////////////////////////////
+const enemigosTotal = enemigos.map(
+    ({ nombre, avatar, nivelAtaque, puntosVida, experiencia }) =>
+        new Enemigos(nombre, avatar, nivelAtaque, puntosVida, experiencia)
+);
+const jefesTotal = jefes.map(
+    ({ nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio }) =>
+        new Jefes(nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio)
+);
+
+console.log(enemigosTotal);
+console.log(jefesTotal);
+
+function crearEquipoBatalla(enemigosArr, jefesArr, numEnemigos = 3, numJefes = 1) {
+
+    // Función auxiliar para seleccionar N elementos únicos
+    function seleccionarUnicos(arr, n) {
+        if (n <= 0) return [];
+        const candidatos = [...arr];
+        const seleccionados = [];
+        for (let i = 0; i < n; i++) {
+            const indiceAleatorio = Math.floor(Math.random() * candidatos.length);
+            const elementoSeleccionado = candidatos.splice(indiceAleatorio, 1)[0];
+            seleccionados.push(elementoSeleccionado);
+        }
+        return seleccionados;
+    }
+    const enemigosSeleccionados = seleccionarUnicos(enemigosArr, numEnemigos);
+    const jefesSeleccionados = seleccionarUnicos(jefesArr, numJefes);
+
+    return enemigosSeleccionados.concat(jefesSeleccionados);
+}
+const rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 3, 1);
+console.log(rondaEnemigos);
+
+
+////////////////////////////////////////////////////////////////////////////
+//escena 1 Resumen jugador
+////////////////////////////////////////////////////////////////////////////
 const escena1JugadorDic = document.getElementById('escena-1-jugador');
 
 //añadimos la imagen y nombre del jugador
@@ -37,17 +82,19 @@ document.getElementById('stat-puntos').textContent = 'Puntos: ' + jugador.puntos
 
 
 
-//escena 2-Mercado
+////////////////////////////////////////////////////////////////////////////
+//escena 2 tienda de objetos
+////////////////////////////////////////////////////////////////////////////
 const mercadoContainer = document.getElementById('mercado')
-if(mercadoContainer){
-    productos.forEach(producto =>{
+if (mercadoContainer) {
+    productos.forEach(producto => {
         console.log(producto);
         //Tarjeta del producto
         const productoDiv = document.createElement('div');
         productoDiv.classList.add('producto-mercado');
         //Imagen del producto
         const imgProducto = document.createElement('img');
-        imgProducto.src = '/imagenes/'+producto.imagen;
+        imgProducto.src = '/imagenes/' + producto.imagen;
         imgProducto.alt = producto.nombre;
         productoDiv.appendChild(imgProducto);
         //nombre del producto
@@ -67,7 +114,7 @@ if(mercadoContainer){
         divStats.appendChild(tipoProducto);
         divStats.appendChild(rarezaProducto);
         divStats.appendChild(bonusProducto);
-        
+
         productoDiv.appendChild(divStats);
         //Precio del producto
         const precioProducto = document.createElement('h3');
@@ -84,7 +131,7 @@ if(mercadoContainer){
         });
         productoDiv.appendChild(botonComprar);
     });
-}else{
+} else {
     console.error('No se encontró el contenedor del mercado');
 }
 
@@ -100,30 +147,30 @@ function manejarCarrito(producto, boton) {
         // Añadir
         carrito.push(producto);
         boton.textContent = 'Retirar';
-        productoDiv.classList.add('en-carrito'); 
+        productoDiv.classList.add('en-carrito');
     } else {
         // Retirar
         carrito.splice(indexEnCarrito, 1);
         boton.textContent = 'Añadir';
-        productoDiv.classList.remove('en-carrito'); 
+        productoDiv.classList.remove('en-carrito');
     }
 }
 
 function pintarFooter() {
-    inventoryContainer.innerHTML = ''; 
+    inventoryContainer.innerHTML = '';
 
     inventario.forEach((producto, index) => {
         const slotDiv = document.createElement('div');
         slotDiv.classList.add('inventory-slot');
-        slotDiv.classList.add('con-item'); 
+        slotDiv.classList.add('con-item');
 
         // Crear la imagen
         const itemImg = document.createElement('img');
-        itemImg.src = '/imagenes/' + producto.imagen; 
+        itemImg.src = '/imagenes/' + producto.imagen;
         itemImg.alt = producto.nombre;
-        
+
         slotDiv.appendChild(itemImg);
-        
+
         inventoryContainer.appendChild(slotDiv);
     });
 
@@ -134,10 +181,10 @@ function pintarFooter() {
         slotVacio.classList.add('inventory-slot');
         slotVacio.classList.add('vacio');
         inventoryContainer.appendChild(slotVacio);
-        
+
         // OPCIONAL: Si quieres que las ranuras vacías no hagan nada al clic:
         slotVacio.addEventListener('click', () => {
-             console.log('Ranura vacía.');
+            console.log('Ranura vacía.');
         });
     }
 }
@@ -146,8 +193,10 @@ function pintarFooter() {
 
 
 
-//escena 3 resumen jugador
-//escena 1
+
+////////////////////////////////////////////////////////////////////////////
+//escena 3 resumen jugador actualizado
+////////////////////////////////////////////////////////////////////////////
 const escena2JugadorDic = document.getElementById('escena-3-jugador');
 
 //añadimos la imagen y nombre del jugador
@@ -163,16 +212,38 @@ if (escena2JugadorDic) {
     escena2JugadorDic.appendChild(nombreJugador);
 }
 
-//añadimos las estadisticas
-document.getElementById('stat-vidat').textContent = 'Vida: ' + jugador.vidaTotal;
-document.getElementById('stat-ataquet').textContent = 'Ataque: ' + jugador.ataqueTotal;
-document.getElementById('stat-defensat').textContent = 'Defensa: ' + jugador.defensaFinal;
-document.getElementById('stat-puntost').textContent = 'Puntos: ' + jugador.puntos;
 
 
+////////////////////////////////////////////////////////////////////////////
+//escena 4 enemigos
+////////////////////////////////////////////////////////////////////////////
 
+const enemigosContainer = document.getElementById('enemigos');
+if (mercadoContainer) {
+    rondaEnemigos.forEach(ene => {
+        console.log(ene);
+        //Tarjeta del producto
+        const enemigoDiv = document.createElement('div');
+        enemigoDiv.classList.add('tarjeta-enemigo');
+        //Imagen del producto
+        const imgEnemigo = document.createElement('img');
+        imgEnemigo.src = '/imagenes/' + ene.avatar;
+        imgEnemigo.alt = ene.nombre;
+        enemigoDiv.appendChild(imgEnemigo);
+        //nombre del producto
+        const nombreEnemigo = document.createElement('h2');
+        nombreEnemigo.textContent = ene.nombre;
+        enemigoDiv.appendChild(nombreEnemigo);
+        //stats del producto
+        const atEnemigo = document.createElement('p');
+        atEnemigo.textContent = ene.nivelAtaque + " puntos de ataque"
+        enemigoDiv.appendChild(atEnemigo);
+        enemigosContainer.appendChild(enemigoDiv);
 
-
+    });
+} else {
+    console.error('No se encontró el contenedor del mercado');
+}
 
 
 
@@ -189,17 +260,18 @@ function cambiarEscena(nextSceneId) {
         proximaEscena.classList.add('active');
         if (miFooter) {
             if (escenasConFooter.includes(nextSceneId)) {
-                miFooter.classList.add('visible'); 
+                miFooter.classList.add('visible');
             } else {
                 miFooter.classList.remove('visible');
             }
         }
-        
+
     } else {
         console.error(`Error: La escena con ID "${nextSceneId}" no existe.`);
     }
 }
-//Botón en Escena 1 (para volver a Escena 2)
+
+//Botón en Escena 1
 const btnScene1 = document.getElementById('btn-scene-1');
 if (btnScene1) {
     btnScene1.addEventListener('click', () => {
@@ -207,9 +279,9 @@ if (btnScene1) {
     });
 }
 
-// 2. Botón en Escena 2 (para volver a Escena 1)
+//Botón en Escena 2
 //acion de comprar 
-const btnComprar = document.getElementById('btn-scene-2'); 
+const btnComprar = document.getElementById('btn-scene-2');
 
 if (btnComprar) {
     btnComprar.addEventListener('click', () => {
@@ -218,14 +290,73 @@ if (btnComprar) {
                 jugador.aniadirObjeto(p);
                 inventario.push(p);
                 console.log(`Has comprado: ${p.nombre}`);
-            });    
-           
+            });
+
         } else {
             console.log('El carrito está vacío. Añade productos para comprar.');
         }
-        
-        cambiarEscena('scene-3'); 
+
+        //añadimos las estadisticas, importante actualizarlo aqui debido a que si no se precargaran con toda la pagina y no se actualizaran 
+        document.getElementById('stat-vidat').textContent = 'Vida: ' + jugador.vidaTotal;
+        document.getElementById('stat-ataquet').textContent = 'Ataque: ' + jugador.ataqueTotal;
+        document.getElementById('stat-defensat').textContent = 'Defensa: ' + jugador.defensaFinal;
+        document.getElementById('stat-puntost').textContent = 'Puntos: ' + jugador.puntos;
+
+        cambiarEscena('scene-3');
+    });
+}
+//Botón en Escena 3
+const btnScene3 = document.getElementById('btn-scene-3');
+if (btnScene3) {
+    btnScene3.addEventListener('click', () => {
+        cambiarEscena('scene-4');
     });
 }
 
+//Botón en Escena 4
+const btnScene4 = document.getElementById('btn-scene-4');
+if (btnScene4) {
+    btnScene4.addEventListener('click', () => {
+        turnoCombate();
+        cambiarEscena('scene-5');
 
+    });
+}
+const btnScene5 = document.getElementById('btn-scene-5');
+if (btnScene5) {
+    btnScene5.addEventListener('click', () => {
+        if (turnoCombate() && rondaEnemigos.length > 0) {
+            return;
+        } else {
+            cambiarEscena('scene-6');
+        }
+
+    });
+}
+
+const jugadorComb = document.getElementById("jugadorComb");
+const enemigoComb = document.getElementById("enemigoComb");
+const resumenComb = document.getElementById("resumenComb");
+const turnoCombate = () => {
+    const enemigoTurno = rondaEnemigos.shift();
+    console.log("vida antes del combate : "+jugador.vidaTotal)
+    const resultado = combate(jugador, enemigoTurno);
+    jugadorComb.src = jugador.avatar;
+    enemigoComb.src = "/imagenes/" + enemigoTurno.avatar;
+    const ganadorCom = document.createElement('h2');
+    ganadorCom.textContent = "Ganador : " + enemigoTurno.nombre;
+    resumenComb.appendChild(ganadorCom);
+    const ptBatalla = document.createElement('h4');
+    ptBatalla.textContent = "Puntos total ganados : " + resultado.experiencia;
+    resumenComb.appendChild(ptBatalla);
+    const logsdiv = document.createElement('div');
+    resultado.log.forEach(linea => {
+        const pElemento = document.createElement('p');
+        pElemento.textContent = linea;
+        logsdiv.appendChild(pElemento);
+    });
+    resumenComb.appendChild(logsdiv)
+    jugador.experiencia += resultado.experiencia
+    return resultado.experiencia;
+
+} 

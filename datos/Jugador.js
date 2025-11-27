@@ -16,6 +16,10 @@ export class Jugador {
     }
 
     aniadirObjeto(objeto) {
+        console.log("entramos en añadir objeto");
+        console.log(this.inventario);
+        console.log(this.vidaTotal);
+        console.log(this.defensaFinal);
         this.inventario.push(objeto); 
         this.actualizarEstadisticas();
     }
