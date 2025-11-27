@@ -43,6 +43,27 @@ footer {
     transform: scale(1.2);
 }
 
+/*Cambio de escenas*/
+.scene {
+    display: none;
+}
+
+.scene.active {
+    display: block; 
+}
+
+footer {
+    display: none;
+}
+
+footer.visible {
+    display: block;
+}
+/*
+
+ESTILO ESCENA 1
+
+*/
 #scene-1{
     margin: 32px;
     height: 90%;
@@ -89,8 +110,19 @@ footer {
     box-shadow: 1px 2px 5px black;
 }
 
-
 #scene-1-stats>div p{
     font-size: 2rem;
 
+}
+
+/*
+
+ESTILO ESCENA 2
+
+*/
+#scene-2{
+    margin: 32px;
+    height: 90%;
+    background-color: var(--secundary-color);
+    color:var(--accent-color);
 }
