@@ -21,7 +21,7 @@ function combate(jugador,enemigo ) {
             
             let experienciaGanada = enemigo.experiencia + 100;
             
-            if (enemigo instanceof Jefe) {
+            if (enemigo instanceof Jefes) {
                 experienciaGanada *= 2;
                 registrarMensaje(`¡Es un JEFE! La experiencia se duplica.`);
             }

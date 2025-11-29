@@ -1,128 +1,837 @@
+/*
+===================================================
+===================================================
+*/
+
+/* Reset de estilos */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Definición de variables y fuentes */
 :root {
-    --primary-color: rgb(9, 0, 48);
-    --secundary-color: rgb(236, 251, 255);
-    --accent-color: rgb(174, 37, 176);
+    --primary-color: #5C4033;
+    --secundary-color: #D4C19A;
+    --accent-color: #694a2b;
+    --dark-border: #3d2a1f;
+
+    /* Variables/Constantes extraídas */
+    --shadow-3d: 3px 5px 0px rgba(0, 0, 0, 0.4);
+    --main-border: 4px solid var(--dark-border);
+    --main-container-border: 5px solid var(--accent-color);
+    --button-color: #8B0000;
+    --player-shadow: 4px 6px 0px rgba(0, 0, 0, 0.4);
+    
+    /* Variables de fuente */
+    --font-primary: 'Graduate', Playbill, serif;
+    --font-title-stencil: "Stencil Std", Stencil, sans-serif;
+    --font-impact: Impact, "Arial Black", sans-serif;
 }
-body{
+
+/* Estilo del Body y Layout principal */
+body {
     background-color: var(--primary-color);
     color: var(--secundary-color);
     display: grid;
     min-height: 100vh;
-    grid-template-rows: auto 1fr auto;
-}
-footer {
-    display: flex;
-    justify-content: center;
+    grid-template-rows: 5vh 80vh 15vh;
+    font-family: var(--font-primary);
 }
 
-#inventory-container {
-    background-color: var(--secundary-color);
-    margin: 5%;
-    display: flex;
-    gap: 4px;
-    padding: 4px;
-}
-.item{
-    background-color: var(--accent-color);
-    width: 100px;
-}
-.item img{
-    width: 100%;
-    filter: drop-shadow(2px 4px 3px black);
-    transition: transform 0.3s ease;
-
+/* Estilo del Header H1 */
+head h1 {
+    font-size: 2rem;
+    color: var(--secundary-color);
+    text-align: center;
+    line-height: 10vh;
+    font-family: var(--font-title-stencil);
 }
 
-.item img:hover{
-    transform: scale(1.2);
-}
-
-/*Cambio de escenas*/
+/* Estilo del contenedor de escena */
 .scene {
     display: none;
+    height: 100%;
 }
 
+/* Escena activa */
 .scene.active {
-    display: block; 
+    display: flex;
 }
 
+/* Estilo del Footer */
 footer {
     display: none;
+    justify-content: center;
+    margin-bottom: 5px; 
 }
 
+/* Footer visible */
 footer.visible {
-    display: block;
+    display: flex;
+    padding: 0;
+    height: 70%; 
+    background-color: var(--primary-color);
+    justify-content: center;
+    align-items: center;
+    margin-top: 12px;
 }
+
 /*
+===================================================
+
+ESTILO FOOTER
+
+===================================================
+*/
+/* Contenedor del Inventario */
+#inventory-container {
+    width: 70%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 5px;
+    border: var(--main-border);
+    padding: 3px;
+    background-color: var(--secundary-color);
+    box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+/* Ranura del Inventario */
+.inventory-slot {
+    border: 2px solid var(--primary-color);
+    background-color: var(--dark-border);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2px;
+}
+
+/* El fondo del slot será claro, el borde del slot será el marco */
+.inventory-slot.vacio,
+.inventory-slot.con-item {
+    background-color: var(--border-color);
+}
+
+/* Imagen de ítem en ranura */
+.inventory-slot img {
+    max-width: 90%;
+}
+
+/*
+===================================================
 
 ESTILO ESCENA 1
 
+===================================================
 */
-#scene-1{
-    margin: 32px;
-    height: 90%;
-    background-color: var(--secundary-color);
-    color:var(--accent-color);
+/* Contenedor de la Escena 1 */
+#scene-1 {
+    margin: 16px;
+    height: 100%;
+    color: var(--accent-color);
+    flex-direction: column;
+    gap: 12px;
 }
-#scene-1>div:first-child{
-    height: 40%;
+
+/* Primer div (Contenedor de jugador) */
+#scene-1>div:first-child {
+    border: var(--main-border);
+    border-radius: 20px;
+    background-color: var(--secundary-color);
+    height: 45%;
     display: flex;
     justify-content: space-between;
-    padding: 16px;
+    align-items: center;
+    padding: 20px;
+    box-shadow: var(--player-shadow);
 }
-#scene-1>div:first-child img{
-    height: 60%;
-    border-radius: 20px;
-        filter: drop-shadow(2px 4px 3px black);
 
+/* Imagen del jugador */
+#scene-1>div:first-child img {
+    height: 85%;
+    border: var(--main-border);
+    border-radius: 15px;
+    background-color: var(--secundary-color);
+    padding: 8px;
+    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.3);
 }
-#scene-1>div:first-child h2{
+
+/* Nombre del jugador (H2) */
+#scene-1>div:first-child h2 {
+    color: var(--dark-border);
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-right: 0;
+    font-family: var(--font-impact);
+}
+
+/* Segundo div (Contenedor de stats) */
+#scene-1>div:nth-child(2) {
+    height: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+/* Divs individuales de stats */
+#escena-1-stats div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 20px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+}
+
+/* Texto de las stats (P) */
+#escena-1-stats div p {
+    font-size: 1rem;
+    font-weight: bold;
     color: var(--accent-color);
-    min-width: 30%;
-    font-size: 2.5rem;
-
 }
 
-#scene-1>div:nth-child(2){
-    height: 50%;
-}
-#scene-1>div:nth-child(3){
+/* Tercer div (Contenedor del botón) */
+#scene-1>div:nth-child(3) {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10%;
+    height: 15%;
 }
 
-#scene-1-stats>div{
-    display: flex;
-    align-items: center;
-    height: 40px;
-    margin: 8px;
-    border: 1px solid var(--accent-color);
-    padding: 8px;
+/* Botón de Continuar */
+#scene-1>div:nth-child(3) button {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 15px 40px;
     background: var(--secundary-color);
-    box-shadow: 1px 2px 5px black;
-}
-
-#scene-1-stats>div p{
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
     font-size: 2rem;
-
+    font-weight: bold;
+    cursor: pointer;
 }
+
+/* Hover del botón */
+#scene-1>div:nth-child(3) button:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+
 
 /*
+===================================================
 
 ESTILO ESCENA 2
 
+===================================================
 */
-#scene-2{
-    margin: 32px;
-    height: 90%;
+/* Contenedor de la Escena 2 */
+#scene-2 {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 16px;
+    height: calc(100% - 32px);
+    color: var(--secundary-color);
+    padding: 0;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Título de la Escena 2 (H2) */
+#scene-2 h2 {
+    border: var(--main-border);
+    border-radius: 15px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+    font-family: var(--font-title-stencil);
+}
+
+/* Contenedor de Productos (Mercado) */
+#mercado {
+    border: var(--main-container-border);
+    box-shadow: 5px 5px 10px black;
+    background-color: var(--primary-color);
+    padding: 10px;
+    height: auto;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* Tarjeta de Producto */
+.producto-mercado {
+    border: var(--main-border);
+    border-radius: 15px;
     background-color: var(--secundary-color);
-    color:var(--accent-color);
+    box-shadow: var(--shadow-3d);
+    height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    color: var(--accent-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Imagen de Producto */
+.producto-mercado img {
+    max-height: 50%;
+    max-width: 90%;
+}
+
+/* Nombre del Producto (H2) */
+.producto-mercado h2 {
+    color: var(--dark-border);
+    font-size: 0.5rem;
+    margin: 5px 0;
+    border: none;
+    padding: 0;
+    font-family: var(--font-impact);
+}
+
+/* Stats del Producto */
+.producto-stats {
+    font-size: 1rem;
+    width: 80%;
+    margin-bottom: 5px;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Precio del Producto (H3) */
+.producto-mercado h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* Botón de Producto */
+.producto-mercado button {
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    background: #E8E8E8;
+    color: var(--dark-border);
+    cursor: pointer;
+}
+
+/* Producto en Carrito */
+.producto-mercado.en-carrito {
+    background-color: #8DAB7B;
+    box-shadow: 2px 2px 5px #4D643F;
+}
+
+/* Contenedor del Botón Comprar */
+#scene-2>div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón Comprar */
+#btn-scene-2 {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 10px 30px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Hover del Botón Comprar */
+#btn-scene-2:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+
+
+/*
+===================================================
+
+ESTILO ESCENA 3
+
+===================================================
+*/
+/* Contenedor de la Escena 3 */
+#scene-3 {
+    margin: 16px;
+    height: 100%;
+    color: var(--accent-color);
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Primer div (Contenedor de jugador) */
+#scene-3>div:first-child {
+    border: var(--main-border);
+    border-radius: 20px;
+    background-color: var(--secundary-color);
+    height: 45%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: var(--player-shadow);
+}
+
+/* Imagen del jugador */
+#scene-3>div:first-child img {
+    height: 85%;
+    border: var(--main-border);
+    border-radius: 15px;
+    background-color: var(--secundary-color);
+    padding: 8px;
+    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Nombre del jugador (H2) */
+#scene-3>div:first-child h2 {
+    color: var(--dark-border);
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-right: 0;
+    font-family: var(--font-impact);
+}
+
+/* Segundo div (Contenedor de stats) */
+#scene-3>div:nth-child(2) {
+    height: 35%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+/* Divs individuales de stats */
+#escena-3-stats div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 20px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+}
+
+/* Texto de las stats (P) */
+#escena-3-stats div p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* Tercer div (Contenedor del botón) */
+#scene-3>div:nth-child(3) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+/* Botón de Continuar */
+#scene-3>div:nth-child(3) button {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 15px 40px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Hover del botón */
+#scene-3>div:nth-child(3) button:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+/*
+===================================================
+
+ESTILO ESCENA 4
+
+===================================================
+*/
+/* Contenedor de la Escena 4 */
+#scene-4 {
+    margin: 16px;
+    height: 110%;
+    color: var(--secundary-color);
+    padding: 0;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Título de la Escena 4 (H2) */
+#scene-4 h2 {
+    border: var(--main-border);
+    border-radius: 15px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+    font-family: var(--font-title-stencil);
+}
+
+/* Contenedor de Enemigos */
+#enemigos {
+    border: var(--main-container-border);
+    box-shadow: 5px 5px 10px black;
+    background-color: var(--primary-color);
+    padding: 10px;
+    height: auto;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+/* Tarjeta de Enemigo */
+.tarjeta-enemigo {
+    border: var(--main-border);
+    border-radius: 15px;
+    background-color: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    height: 300px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    color: var(--accent-color);
+    transition: background-color 0.3s ease;
+}
+
+/* Imagen del Enemigo*/
+.tarjeta-enemigo img {
+    max-height: 55%; 
+    max-width: 90%;
+}
+
+/* Nombre del Enemigo (H2) */
+.tarjeta-enemigo h2 {
+    color: var(--dark-border);
+    font-size: 1.2rem;
+    margin: 5px 0;
+    border: none;
+    padding: 0;
+    font-family: var(--font-impact);
+}
+
+/* Stats del Enemigo (P) */
+.tarjeta-enemigo p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* Contenedor del Botón Continuar */
+#scene-4>div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Botón Continuar */
+#btn-scene-4 {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 10px 30px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Hover del Botón Continuar */
+#btn-scene-4:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+
+/*
+===================================================
+
+ESTILO ESCENA 5
+
+===================================================
+*/
+
+/* Contenedor de la Escena 5 */
+#scene-5 {
+    margin: 10px;
+    flex-direction: column;
+    height: 80%; 
+    gap: 12px;
+}
+
+/* Título de la Escena 5 (H2) */
+#scene-5 h2 {
+    border: var(--main-border);
+    border-radius: 15px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px;
+    font-family: var(--font-title-stencil);
+}
+
+/* Contenedor Principal del Combate */
+#combate {
+    flex-grow: 1; 
+    height: 98%;     
+    border: var(--main-container-border);
+    box-shadow: 5px 5px 10px black;
+    background-color: var(--dark-border);
+    padding: 20px;
+    margin-top:10px ;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Contenedor del Turno (Personajes y VS) */
+#turnoComb {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 3; 
+    height: 40%;
+    overflow: hidden;
+}
+
+/* Imagen del Jugador */
+#jugadorComb {
+    max-height: 100%;
+    max-width: 40%;
+    transform: translateX(-100vw);
+    animation: slideInLeft 1s ease-out forwards;
+}
+
+/* Imagen del Enemigo */
+#enemigoComb {
+    max-height: 100%;
+    max-width: 40%;
+    transform: translateX(100vw);
+    animation: slideInRight 1s ease-out 0.2s forwards;
+}
+
+/* Texto VS (H2) */
+#turnoComb h2 {
+    color: var(--dark-border);
+    font-size: 4rem;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+    transform: translateY(-50vh);
+    animation: slideInTop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+    font-family: var(--font-impact);
+}
+
+/* Contenedor del Resumen/Log */
+#resumenComb {
+    flex-grow: 2;
+    height: 10%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: var(--secundary-color);
+    font-size: 0.9rem;
+    overflow-y: auto;
+}
+
+/* Título de Ganador (H2 en Log) */
+#resumenComb h2 {
+    color: #f0e68c;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    border: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    font-family: var(--font-impact);
+}
+
+/* Puntos ganados (H4 en Log) */
+#resumenComb h4 {
+    color: #90ee90;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Líneas de Log (P) */
+#resumenComb p {
+    margin-bottom: 3px;
+    line-height: 1.2;
+}
+
+
+/* Contenedor del Botón Continuar */
+#scene-5>div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+}
+
+/* Botón Continuar */
+#btn-scene-5 {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 10px 30px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0;
+}
+
+/* Hover del Botón Continuar */
+#btn-scene-5:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+/*
+ANIMACIONES DE ENTRADA PARA EL COMBATE
+*/
+/* Animación: Deslizamiento desde la izquierda */
+@keyframes slideInLeft {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Animación: Deslizamiento desde la derecha */
+@keyframes slideInRight {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Animación: Deslizamiento desde arriba */
+@keyframes slideInTop {
+    to {
+        transform: translateY(0);
+    }
+}
+
+
+/*
+===================================================
+
+ESTILO ESCENA 6
+
+===================================================
+*/
+/* Contenedor de la Escena 6 */
+#scene-6 {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    margin: 16px;
+    height: 100%;
+    color: var(--secundary-color);
+    padding: 0;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Título Final (h2#finalBatalla) */
+#scene-6 h2 {
+    border: var(--main-container-border);
+    border-radius: 10px;
+    background: var(--secundary-color);
+    box-shadow: 0 5px 0 var(--dark-border), 0 0 10px rgba(0, 0, 0, 0.4);
+    color: var(--dark-border);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 25px 40px;
+    width: 90%;
+    max-width: 600px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: var(--font-impact);
+}
+
+/* Párrafo de Puntuación */
+#scene-6 p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--secundary-color);
+    background-color: var(--dark-border);
+    padding: 15px 30px;
+    border-radius: 10px;
+    border: 3px solid var(--accent-color);
+    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenedor del Botón Reiniciar */
+#scene-6>div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Botón Reiniciar */
+#btn-scene-6 {
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 15px 40px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--dark-border);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover del Botón Reiniciar */
+#btn-scene-6:hover {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
 }
