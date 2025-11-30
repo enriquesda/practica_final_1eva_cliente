@@ -22,17 +22,10 @@ function aplicarDescuentoPorRareza(rareza, porcentaje) {
   return productos.filter(p => p.rareza === rareza).map(p => p.aplicarDescuento(porcentaje));
 }
 
-function buscarProducto(nombre) {
-  return productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
-}
-
-
-
 export const Mercado = {
   productos,
   filtrarPorRareza,
   filtrarPorTipo,
   aplicarDescuentoPorRareza,
   aplicarDescuentoPorTipo,
-  buscarProducto
 };

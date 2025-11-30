@@ -239,6 +239,14 @@ ESTILO ESCENA 2
 ===================================================
 */
 /* Contenedor de la Escena 2 */
+/*
+===================================================
+
+ESTILO ESCENA 2
+
+===================================================
+*/
+/* Contenedor de la Escena 2 */
 #scene-2 {
     background-color: transparent;
     border: none;
@@ -248,7 +256,17 @@ ESTILO ESCENA 2
     color: var(--secundary-color);
     padding: 0;
     flex-direction: column;
-    gap: 12px;
+    gap: 0; 
+}
+
+/* Cabecera que junta el Título y el Buscador */
+#scene-2-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px; 
+    width: 100%;
 }
 
 /* Título de la Escena 2 (H2) */
@@ -258,10 +276,63 @@ ESTILO ESCENA 2
     background: var(--secundary-color);
     box-shadow: var(--shadow-3d);
     color: var(--accent-color);
-    font-size: 1.2rem;
-    text-align: center;
-    padding: 10px;
-    font-family: var(--font-title-stencil);
+    font-size: 1rem;
+    text-align: left;
+    padding: 10px 15px;
+    font-family: var(--font-title-stencil);    
+    max-width: 250px; 
+}
+
+/*ESTILOS DEL BUSCADOR */
+#mercado-buscador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 8px; 
+    border: 3px solid var(--accent-color);
+    border-radius: 10px;
+    background-color: var(--dark-border);
+    box-shadow: var(--shadow-3d);
+    
+    /* Permite que el buscador ocupe el espacio restante */
+    flex-grow: 1; 
+}
+
+/* Estilo para Input y Selects (Elementos de formulario) */
+#mercado-buscador input[type="text"],
+#mercado-buscador select {
+    flex-grow: 1; 
+    padding: 6px 8px; 
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: #f0e68c;
+    color: var(--primary-color);
+    font-size: 0.9rem; 
+    font-family: var(--font-primary);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+/* Estilo para el botón de Limpiar Filtros */
+#btn-limpiar-filtros {
+    padding: 6px 10px;
+    border: 2px solid var(--button-color);
+    border-radius: 5px;
+    background-color: var(--secundary-color);
+    color: var(--button-color);
+    font-size: 0.9rem;
+    font-weight: bold;
+    font-family: var(--font-primary);
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#btn-limpiar-filtros:hover {
+    color: var(--primary-color);
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* Contenedor de Productos (Mercado) */
@@ -642,16 +713,11 @@ ESTILO ESCENA 5
 #jugadorComb {
     max-height: 100%;
     max-width: 40%;
-    transform: translateX(-100vw);
-    animation: slideInLeft 1s ease-out forwards;
 }
-
 /* Imagen del Enemigo */
 #enemigoComb {
     max-height: 100%;
     max-width: 40%;
-    transform: translateX(100vw);
-    animation: slideInRight 1s ease-out 0.2s forwards;
 }
 
 /* Texto VS (H2) */

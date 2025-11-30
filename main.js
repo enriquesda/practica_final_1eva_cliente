@@ -7,6 +7,7 @@ import { Enemigos } from './recursos/Enemigos.js';
 import { Jefes } from './recursos/Jefes.js';
 import enemigos from "../datos/enemigos.js";
 import jefes from "../datos/jefes.js";
+import { tipoProductos, rarezaProductos } from "./recursos/Constants.js";
 
 let productos = Mercado.productos;
 let inventario = [];
@@ -84,53 +85,147 @@ document.getElementById('stat-puntos').textContent = 'Puntos: ' + jugador.puntos
 //escena 2 tienda de objetos
 ////////////////////////////////////////////////////////////////////////////
 const mercadoContainer = document.getElementById('mercado')
-if (mercadoContainer) {
-    productos.forEach(producto => {
-        console.log(producto);
-        //Tarjeta del producto
-        const productoDiv = document.createElement('div');
-        productoDiv.classList.add('producto-mercado');
-        //Imagen del producto
-        const imgProducto = document.createElement('img');
-        imgProducto.src = '/imagenes/' + producto.imagen;
-        imgProducto.alt = producto.nombre;
-        productoDiv.appendChild(imgProducto);
-        //nombre del producto
-        const nombreProducto = document.createElement('h2');
-        nombreProducto.textContent = producto.nombre;
-        productoDiv.appendChild(nombreProducto);
-        //stats del producto
-        const divStats = document.createElement('div');
-        divStats.classList.add('producto-stats');
-        const rarezaProducto = document.createElement('p');
-        rarezaProducto.textContent = 'Rareza: ' + producto.rareza;
-        const tipoProducto = document.createElement('p');
-        tipoProducto.textContent = 'Tipo: ' + producto.tipo;
-        const bonusProducto = document.createElement('p');
-        bonusProducto.textContent = 'Bonus: ' + producto.bonus;
+const rarezasPosibles = ['comun', 'rara', 'legendaria'];
+let rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
+function pintarMercado(productosFiltrados = productos) {
+    if (mercadoContainer) {
+        mercadoContainer.innerHTML = '';
+        if (productosFiltrados.length === 0) {
+        const mensaje = document.createElement('p');
+        mensaje.textContent = 'No se encontraron productos con los filtros seleccionados.';
+        mercadoContainer.appendChild(mensaje);
+        return;
+    }
+        productosFiltrados.forEach(producto => {
+            //descuento por tipo
+            let precioFinal = producto.precio;
+            let objetoParaCarrito = producto;
+            let esOferta = false;
+            if (producto.rareza === rarezaOferta) {
+                esOferta = true;
+                precioFinal = Math.floor(producto.precio * 0.85);
+                objetoParaCarrito = new Producto(
+                    producto.nombre,
+                    producto.imagen,
+                    precioFinal,
+                    producto.rareza,
+                    producto.tipo,
+                    producto.bonus
+                );
+            }
+            console.log(producto);
+            //Tarjeta del producto
+            const productoDiv = document.createElement('div');
+            productoDiv.classList.add('producto-mercado');
+            //Imagen del producto
+            const imgProducto = document.createElement('img');
+            imgProducto.src = '/imagenes/' + producto.imagen;
+            imgProducto.alt = producto.nombre;
+            productoDiv.appendChild(imgProducto);
+            //nombre del producto
+            const nombreProducto = document.createElement('h2');
+            nombreProducto.textContent = producto.nombre;
+            productoDiv.appendChild(nombreProducto);
+            //stats del producto
+            const divStats = document.createElement('div');
+            divStats.classList.add('producto-stats');
+            const rarezaProducto = document.createElement('p');
+            rarezaProducto.textContent = 'Rareza: ' + producto.rareza;
+            const tipoProducto = document.createElement('p');
+            tipoProducto.textContent = 'Tipo: ' + producto.tipo;
+            const bonusProducto = document.createElement('p');
+            bonusProducto.textContent = 'Bonus: ' + producto.bonus;
 
-        divStats.appendChild(tipoProducto);
-        divStats.appendChild(rarezaProducto);
-        divStats.appendChild(bonusProducto);
+            divStats.appendChild(tipoProducto);
+            divStats.appendChild(rarezaProducto);
+            divStats.appendChild(bonusProducto);
 
-        productoDiv.appendChild(divStats);
-        //Precio del producto
-        const precioProducto = document.createElement('h3');
-        precioProducto.textContent = 'Precio: ' + producto.precio + ' monedas';
-        productoDiv.appendChild(precioProducto);
+            productoDiv.appendChild(divStats);
+            //Precio del producto
+            const precioProducto = document.createElement('h3');
+            if (esOferta) {
+                precioProducto.innerHTML = `Precio: <del>${producto.precio}</del> -> ${precioFinal}`;
+                precioProducto.style.color = 'green';
+            } else {
+                precioProducto.textContent = 'Precio: ' + producto.precio;
+            }
+            productoDiv.appendChild(precioProducto);
 
-        mercadoContainer.appendChild(productoDiv);
+            mercadoContainer.appendChild(productoDiv);
 
-        //boton comprar
-        const botonComprar = document.createElement('button');
-        botonComprar.textContent = 'Añadir';
-        botonComprar.addEventListener('click', (e) => {
-            manejarCarrito(producto, e.currentTarget);
+            //boton comprar
+            const botonComprar = document.createElement('button');
+            botonComprar.textContent = 'Añadir';
+            botonComprar.addEventListener('click', (e) => {
+                manejarCarrito(producto, e.currentTarget);
+            });
+            productoDiv.appendChild(botonComprar);
         });
-        productoDiv.appendChild(botonComprar);
+    } else {
+        console.error('No se encontró el contenedor del mercado');
+    }
+}
+function cargarOpcionesFiltro() {
+    const selectTipo = document.getElementById('filtro-tipo');
+    const selectRareza = document.getElementById('filtro-rareza');
+
+    if (selectTipo && selectRareza) {
+        tipoProductos.forEach(tipo => {
+            const option = document.createElement('option');
+            option.value = tipo;
+            option.textContent = tipo;
+            selectTipo.appendChild(option);
+        });
+        rarezaProductos.forEach(rareza => {
+            const option = document.createElement('option');
+            option.value = rareza;
+            option.textContent = rareza;
+            selectRareza.appendChild(option);
+        });
+    }
+}
+const inputNombre = document.getElementById('filtro-nombre');
+const selectTipo = document.getElementById('filtro-tipo');
+const selectRareza = document.getElementById('filtro-rareza');
+const btnLimpiar = document.getElementById('btn-limpiar-filtros');
+
+function aplicarFiltrosMercado() {
+    const nombre = inputNombre ? inputNombre.value.toLowerCase() : '';
+    const tipo = selectTipo ? selectTipo.value : '';
+    const rareza = selectRareza ? selectRareza.value : '';
+    let productosFiltrados = productos;
+    if (tipo) {
+        productosFiltrados = productosFiltrados.filter(p => p.tipo === tipo);
+    }
+
+    if (rareza) {
+        productosFiltrados = productosFiltrados.filter(p => p.rareza === rareza);
+    }
+
+    if (nombre) {
+         productosFiltrados = productosFiltrados.filter(p => 
+            p.nombre.toLowerCase().includes(nombre)
+        );
+    }
+
+    pintarMercado(productosFiltrados);
+}
+if (inputNombre) {
+    inputNombre.addEventListener('input', aplicarFiltrosMercado);
+}
+if (selectTipo) {
+    selectTipo.addEventListener('change', aplicarFiltrosMercado);
+}
+if (selectRareza) {
+    selectRareza.addEventListener('change', aplicarFiltrosMercado);
+}
+if (btnLimpiar) {
+    btnLimpiar.addEventListener('click', () => {
+        if (inputNombre) inputNombre.value = '';
+        if (selectTipo) selectTipo.value = '';
+        if (selectRareza) selectRareza.value = '';
+        aplicarFiltrosMercado();
     });
-} else {
-    console.error('No se encontró el contenedor del mercado');
 }
 
 
@@ -255,10 +350,22 @@ const turnoCombate = () => {
     const enemigoTurno = rondaEnemigos[0];
     resumenComb.innerHTML = "";
     console.log("vida antes del combate : " + jugador.vidaTotal)
+    //restablecemos las animaciones ... no me convence mucho esto cambiar si da tiempo
+    jugadorComb.style.transform = 'translateX(-100vw)';
+    enemigoComb.style.transform = 'translateX(100vw)';
+    jugadorComb.style.animation = 'none';
+    enemigoComb.style.animation = 'none';
+    jugadorComb.src = jugador.avatar;
+    enemigoComb.src = "/imagenes/" + enemigoTurno.avatar;
+    void jugadorComb.offsetWidth;
+    setTimeout(() => {
+        jugadorComb.style.animation = 'slideInLeft 1s ease-out forwards';
+        enemigoComb.style.animation = 'slideInRight 1s ease-out 0.2s forwards';
+    }, 10);
     const resultado = combate(jugador, enemigoTurno);
     jugadorComb.src = jugador.avatar;
     enemigoComb.src = "/imagenes/" + enemigoTurno.avatar;
-    
+
     const nombreGanador = resultado.experiencia > 0 ? jugador.nombre : enemigoTurno.nombre;
     const ganadorCom = document.createElement('h2');
     ganadorCom.textContent = "Ganador : " + nombreGanador;
@@ -267,7 +374,7 @@ const turnoCombate = () => {
     const ptBatalla = document.createElement('h4');
     ptBatalla.textContent = "Puntos total ganados : " + resultado.experiencia;
     resumenComb.appendChild(ptBatalla);
-    
+
     const logsdiv = document.createElement('div');
     resultado.log.forEach(linea => {
         const pElemento = document.createElement('p');
@@ -276,11 +383,11 @@ const turnoCombate = () => {
     });
     resumenComb.appendChild(logsdiv);
     jugador.puntuacion += resultado.experiencia;
-    
+
     if (enemigoTurno.puntosVida <= 0) {
         rondaEnemigos.shift();
     }
-    
+
     return { experiencia: resultado.experiencia, enemigoDerrotado: enemigoTurno.puntosVida <= 0 };
 }
 ////////////////////////////////////////////////////////////////////////////
@@ -290,9 +397,12 @@ const turnoCombate = () => {
 
 function inicializarEstado() {
     jugador = new Jugador('Cacharro', '/imagenes/personaje.png');
-    inventario = []; 
+    inventario = [];
+    rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
+    pintarMercado();
+    cargarOpcionesFiltro();
     rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 3, 1);
-    batallaFinalizada = false;  
+    batallaFinalizada = false;
     carrito = [];
     const productoDivs = document.querySelectorAll('.producto-mercado');
     productoDivs.forEach(div => {
@@ -388,14 +498,13 @@ if (btnScene4) {
     });
 }
 
-
 //Botón en Escena 5 combates
 //acion de los combates
 //Botón en Escena 5 combates
 const btnScene5 = document.getElementById('btn-scene-5');
 if (btnScene5) {
     btnScene5.addEventListener('click', () => {
-        
+        //no me convence el metodo de si el enemigo muere en la primera ronda ... cambiar si da tiempo   
         if (batallaFinalizada) {
             const finalBatallaElement = document.getElementById("finalBatalla");
             if (finalBatallaElement) {
@@ -410,14 +519,14 @@ if (btnScene5) {
         }
         const resultadoCombate = turnoCombate();
         const combateTerminado = (resultadoCombate.experiencia === 0) || (rondaEnemigos.length === 0);
-        
+
         if (combateTerminado) {
             if (resultadoCombate.experiencia === 0) {
                 btnScene5.textContent = 'Fin del Juego (Derrota)';
             } else {
                 btnScene5.textContent = 'Finalizar Batalla (Victoria)';
             }
-            batallaFinalizada = true; 
+            batallaFinalizada = true;
         } else {
             btnScene5.textContent = 'Siguiente Enemigo';
         }
@@ -429,7 +538,7 @@ if (btnScene5) {
 const btnScene6 = document.getElementById('btn-scene-6');
 if (btnScene6) {
     btnScene6.addEventListener('click', () => {
-        inicializarEstado(); 
-        cambiarEscena('scene-1'); 
+        inicializarEstado();
+        cambiarEscena('scene-1');
     });
 }
