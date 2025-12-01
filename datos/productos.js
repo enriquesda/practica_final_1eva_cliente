@@ -1,4 +1,22 @@
+/**
+ * @fileoverview Este archivo contiene la definición de los productos
+ * disponibles en el mercado del juego. Se exporta un array de objetos
+ * con las propiedades base de cada producto.
+ * @exports {Array<Object>} El array de productos del mercado.
+ */
+
 export default[
+  /**
+   * Un objeto que representa un producto del mercado.
+   * @typedef {Object} DatosProducto
+   * @property {string} nombre - Nombre del objeto que puede comprar el jugador.
+   * @property {string} imagen - El nombre del archivo de la imagen del objeto (ej: "espada_hierro.png").
+   * @property {number} precio - El precio en monedas del objeto.
+   * @property {("comun"|"rara"|"legendaria")} rareza - La rareza del objeto, que afecta al bonus final.
+   * @property {("arma"|"armadura"|"consumible")} tipo - La categoria del objeto (arma, armadura, o consumible).
+   * @property {number} bonus - El valor base de la estadística que proporciona el objeto.
+   */
+
   {
     "nombre": "Espada de Hierro",
     "imagen": "espada_hierro.png",

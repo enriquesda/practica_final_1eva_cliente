@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: modulos/Batalla.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: modulos/Batalla.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Jugador } from "../recursos/Jugador.js";
+import { Enemigos } from "../recursos/Enemigos.js";
+import { Jefes} from "../recursos/Jefes.js";
+
+/**
+ * Simula un turno de combate simple por turnos entre el jugador y un enemigo.
+ * @param {Jugador} jugador - El objeto Jugador con sus stats actuales.
+ * @param {Enemigos|Jefes} enemigo - El objeto Enemigo o Jefe contra el que se lucha.
+ * @returns {{experiencia: number, log: string[]}} Un objeto con la experiencia ganada y el historial del combate.
+ */
+function combate(jugador,enemigo ) {
+    /** @type {string[]} */
+    let logBatalla = []; 
+    
+    /**
+     * Añade un mensaje al historial y lo muestra por consola.
+     * @param {string} mensaje
+     */
+    const registrarMensaje = (mensaje) => {
+        logBatalla.push(mensaje); 
+        console.log(mensaje); 
+    };
+
+    // El combate sigue mientras los dos sigan vivos
+    while (jugador.vidaTotal > 0 &amp;&amp; enemigo.puntosVida > 0) {
+        console.log("entramos en combate")
+        
+        // 1. Turno del Jugador (el jugador siempre ataca primero)
+        enemigo.puntosVida -= jugador.ataqueTotal;
+        registrarMensaje(`${jugador.nombre} ataca a ${enemigo.nombre}. Vida restante: ${enemigo.puntosVida.toFixed(2)}`);
+        
+        if (enemigo.puntosVida &lt;= 0) {
+            registrarMensaje(`¡${jugador.nombre} ha derrotado a ${enemigo.nombre}!`);
+            
+            let experienciaGanada = enemigo.experiencia + 100;
+            
+            // Si el enemigo es una instancia de Jefe, damos más experiencia
+            if (enemigo instanceof Jefes) {
+                experienciaGanada *= 2;
+                registrarMensaje(`¡Es un JEFE! La experiencia se duplica.`);
+            }
+            registrarMensaje(`${jugador.nombre} gana ${experienciaGanada} puntos de experiencia.`);
+            
+            // Devuelve la experiencia y el log de victoria
+            return { experiencia: experienciaGanada, log: logBatalla };
+        }
+
+        // 2. Turno del Enemigo (solo si sigue vivo)
+        jugador.vidaTotal -= enemigo.nivelAtaque; 
+        registrarMensaje(`${enemigo.nombre} ataca a ${jugador.nombre}. Vida restante: ${jugador.vidaTotal.toFixed(2)}`);
+
+        if (jugador.vidaTotal &lt;= 0) {
+            registrarMensaje(`${enemigo.nombre} ha derrotado a ${jugador.nombre}. Fin del juego.`);
+            
+            // Devuelve 0 experiencia y el log de derrota
+            return { experiencia: 0, log: logBatalla };
+        }
+    }
+    
+    // Por si el bucle termina por una condición inicial (no debería pasar)
+    return { experiencia: 0, log: logBatalla };
+}
+export { combate };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="datos_enemigos.module_js.html">datos/enemigos.js</a></li><li><a href="datos_jefes.module_js.html">datos/jefes.js</a></li><li><a href="datos_personajes.module_js.html">datos/personajes.js</a></li><li><a href="datos_productos.module_js.html">datos/productos.js</a></li></ul><h3>Namespaces</h3><ul><li><a href="Mercado.html">Mercado</a></li></ul><h3>Classes</h3><ul><li><a href="Enemigos.html">Enemigos</a></li><li><a href="Jefes.html">Jefes</a></li><li><a href="Jugador.html">Jugador</a></li><li><a href="Producto.html">Producto</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MONEDAS_INICIALES">MONEDAS_INICIALES</a></li><li><a href="global.html#actualizarPreview">actualizarPreview</a></li><li><a href="global.html#actualizarUIMercado">actualizarUIMercado</a></li><li><a href="global.html#aplicarDescuentoPorRareza">aplicarDescuentoPorRareza</a></li><li><a href="global.html#aplicarDescuentoPorTipo">aplicarDescuentoPorTipo</a></li><li><a href="global.html#aplicarFiltrosMercado">aplicarFiltrosMercado</a></li><li><a href="global.html#batallaFinalizada">batallaFinalizada</a></li><li><a href="global.html#btnLimpiar">btnLimpiar</a></li><li><a href="global.html#calcularCostoTotal">calcularCostoTotal</a></li><li><a href="global.html#cambiarEscena">cambiarEscena</a></li><li><a href="global.html#cargarOpcionesFiltro">cargarOpcionesFiltro</a></li><li><a href="global.html#carrito">carrito</a></li><li><a href="global.html#combate">combate</a></li><li><a href="global.html#costoTotalCarrito">costoTotalCarrito</a></li><li><a href="global.html#crearEquipoBatalla">crearEquipoBatalla</a></li><li><a href="global.html#distinguirJugador">distinguirJugador</a></li><li><a href="global.html#enemigoComb">enemigoComb</a></li><li><a href="global.html#enemigosContainer">enemigosContainer</a></li><li><a href="global.html#enemigosTotal">enemigosTotal</a></li><li><a href="global.html#escena1JugadorDic">escena1JugadorDic</a></li><li><a href="global.html#escena2JugadorDic">escena2JugadorDic</a></li><li><a href="global.html#escenasConFooter">escenasConFooter</a></li><li><a href="global.html#filtrarPorRareza">filtrarPorRareza</a></li><li><a href="global.html#filtrarPorTipo">filtrarPorTipo</a></li><li><a href="global.html#inicializarEstado">inicializarEstado</a></li><li><a href="global.html#inputNombre">inputNombre</a></li><li><a href="global.html#inventario">inventario</a></li><li><a href="global.html#inventoryContainer">inventoryContainer</a></li><li><a href="global.html#jefesTotal">jefesTotal</a></li><li><a href="global.html#jugador">jugador</a></li><li><a href="global.html#jugadorComb">jugadorComb</a></li><li><a href="global.html#manejarCarrito">manejarCarrito</a></li><li><a href="global.html#mercadoContainer">mercadoContainer</a></li><li><a href="global.html#miFooter">miFooter</a></li><li><a href="global.html#personajeSeleccionado">personajeSeleccionado</a></li><li><a href="global.html#pintarEnemigos">pintarEnemigos</a></li><li><a href="global.html#pintarFooter">pintarFooter</a></li><li><a href="global.html#pintarMercado">pintarMercado</a></li><li><a href="global.html#pintarResumenJugador">pintarResumenJugador</a></li><li><a href="global.html#pintarResumenJugadorEscena3">pintarResumenJugadorEscena3</a></li><li><a href="global.html#pintarSelectorPersonaje">pintarSelectorPersonaje</a></li><li><a href="global.html#productos">productos</a></li><li><a href="global.html#rarezaOferta">rarezaOferta</a></li><li><a href="global.html#rarezasPosibles">rarezasPosibles</a></li><li><a href="global.html#resumenComb">resumenComb</a></li><li><a href="global.html#rondaEnemigos">rondaEnemigos</a></li><li><a href="global.html#saldoActual">saldoActual</a></li><li><a href="global.html#selectRareza">selectRareza</a></li><li><a href="global.html#selectTipo">selectTipo</a></li><li><a href="global.html#turnoCombate">turnoCombate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sun Nov 30 2025 20:19:41 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

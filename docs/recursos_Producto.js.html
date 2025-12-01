@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: recursos/Producto.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: recursos/Producto.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { rarezaProductos, tipoProductos } from "./constants.js";
+/**
+ * Clase para crear todos los objetos que se pueden comprar en la tienda.
+ * @class
+ */
+export class Producto {
+    /** @type {string}*/
+    nombre;
+    /** @type {string}*/
+    imagen;
+    /** @type {number}*/
+    precio;
+    /** @type {string}*/
+    rareza;
+    /** @type {string}*/
+    tipo;
+    /** @type {number}*/
+    bonus;
+
+    /**
+     * Crea una instancia de Producto.
+     * Si la rareza o el tipo no son validos, usa los valores 'comun' o 'consumible'.
+     * @constructor
+     * @param {string} nombre - Nombre del producto.
+     * @param {string} imagen - La ruta de la imajen del objeto.
+     * @param {number} precio - El coste en monedas.
+     * @param {string} rareza - La rareza, comprueba si es valida.
+     * @param {string} tipo - El tipo de objeto, comprueba si es valido.
+     * @param {number} bonus - El bonus base de stat que da el objeto.
+     */
+    constructor(
+        nombre,
+        imagen,
+        precio,
+        rareza,
+        tipo,
+        bonus
+    ) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precio = precio;
+        if (rarezaProductos.includes(rareza.toLowerCase())) {
+            this.rareza = rareza;
+        } else {
+            this.rareza = 'comun';
+        }
+        if (tipoProductos.includes(tipo.toLowerCase())) {
+            this.tipo = tipo;
+        } else {
+            this.tipo = 'consumible'; // Esta mal escrito 'consumible'
+        }
+        this.bonus = bonus;
+    }
+    
+    /**
+     * Devuelve el precio del producto en un formato de texto con simbolo de euro.
+     * Esto está mal porque el precio es en monedas del juego, no euros.
+     * @returns {string} El precio del producto en un formato de texto.
+     */
+    formatearAtributos() {
+        return `${(this.precio / 100).toFixed(2)}€`;
+    }
+    
+    /**
+     * Devuelve el valor del bonus del objeto aplicado segun su rareza.
+     * @returns {number} El bonus total del objeto.
+     */
+    obtenerBonus(){
+        switch(this.rareza){
+            case 'comun':
+                return this.bonus*1;
+            case 'rara':
+                return this.bonus*1.5;
+            case 'legendaria':
+                return this.bonus*2;
+        }
+    }
+
+    /**
+     * Crea una copia del producto con un precio rebajado.
+     * @param {number} porcentaje - El porcentaje de descuento a aplicar.
+     * @returns {Producto} Una copia (clon) del producto con el nuevo precio.
+     */
+    aplicarDescuento(porcentaje) {
+        const nuevoPrecio = this.precio - (this.precio * (porcentaje / 100));
+        const copia = new Producto(
+            this.nombre,
+            this.imagen,
+            nuevoPrecio,
+            this.rareza,
+            this.tipo,
+            this.bonus
+        );
+        return copia;
+    }
+
+    /**
+     * Hace una copia exacta del producto.
+     * @returns {Producto} Un nuevo objeto Producto identico al original.
+     */
+    clonar() {
+        return new Producto(
+            this.nombre,
+            this.imagen,
+            this.precio,
+            this.rareza,
+            this.tipo,
+            this.bonus
+        );
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="datos_enemigos.module_js.html">datos/enemigos.js</a></li><li><a href="datos_jefes.module_js.html">datos/jefes.js</a></li><li><a href="datos_personajes.module_js.html">datos/personajes.js</a></li><li><a href="datos_productos.module_js.html">datos/productos.js</a></li></ul><h3>Namespaces</h3><ul><li><a href="Mercado.html">Mercado</a></li></ul><h3>Classes</h3><ul><li><a href="Enemigos.html">Enemigos</a></li><li><a href="Jefes.html">Jefes</a></li><li><a href="Jugador.html">Jugador</a></li><li><a href="Producto.html">Producto</a></li></ul><h3>Global</h3><ul><li><a href="global.html#MONEDAS_INICIALES">MONEDAS_INICIALES</a></li><li><a href="global.html#actualizarPreview">actualizarPreview</a></li><li><a href="global.html#actualizarUIMercado">actualizarUIMercado</a></li><li><a href="global.html#aplicarDescuentoPorRareza">aplicarDescuentoPorRareza</a></li><li><a href="global.html#aplicarDescuentoPorTipo">aplicarDescuentoPorTipo</a></li><li><a href="global.html#aplicarFiltrosMercado">aplicarFiltrosMercado</a></li><li><a href="global.html#batallaFinalizada">batallaFinalizada</a></li><li><a href="global.html#btnLimpiar">btnLimpiar</a></li><li><a href="global.html#calcularCostoTotal">calcularCostoTotal</a></li><li><a href="global.html#cambiarEscena">cambiarEscena</a></li><li><a href="global.html#cargarOpcionesFiltro">cargarOpcionesFiltro</a></li><li><a href="global.html#carrito">carrito</a></li><li><a href="global.html#combate">combate</a></li><li><a href="global.html#costoTotalCarrito">costoTotalCarrito</a></li><li><a href="global.html#crearEquipoBatalla">crearEquipoBatalla</a></li><li><a href="global.html#distinguirJugador">distinguirJugador</a></li><li><a href="global.html#enemigoComb">enemigoComb</a></li><li><a href="global.html#enemigosContainer">enemigosContainer</a></li><li><a href="global.html#enemigosTotal">enemigosTotal</a></li><li><a href="global.html#escena1JugadorDic">escena1JugadorDic</a></li><li><a href="global.html#escena2JugadorDic">escena2JugadorDic</a></li><li><a href="global.html#escenasConFooter">escenasConFooter</a></li><li><a href="global.html#filtrarPorRareza">filtrarPorRareza</a></li><li><a href="global.html#filtrarPorTipo">filtrarPorTipo</a></li><li><a href="global.html#inicializarEstado">inicializarEstado</a></li><li><a href="global.html#inputNombre">inputNombre</a></li><li><a href="global.html#inventario">inventario</a></li><li><a href="global.html#inventoryContainer">inventoryContainer</a></li><li><a href="global.html#jefesTotal">jefesTotal</a></li><li><a href="global.html#jugador">jugador</a></li><li><a href="global.html#jugadorComb">jugadorComb</a></li><li><a href="global.html#manejarCarrito">manejarCarrito</a></li><li><a href="global.html#mercadoContainer">mercadoContainer</a></li><li><a href="global.html#miFooter">miFooter</a></li><li><a href="global.html#personajeSeleccionado">personajeSeleccionado</a></li><li><a href="global.html#pintarEnemigos">pintarEnemigos</a></li><li><a href="global.html#pintarFooter">pintarFooter</a></li><li><a href="global.html#pintarMercado">pintarMercado</a></li><li><a href="global.html#pintarResumenJugador">pintarResumenJugador</a></li><li><a href="global.html#pintarResumenJugadorEscena3">pintarResumenJugadorEscena3</a></li><li><a href="global.html#pintarSelectorPersonaje">pintarSelectorPersonaje</a></li><li><a href="global.html#productos">productos</a></li><li><a href="global.html#rarezaOferta">rarezaOferta</a></li><li><a href="global.html#rarezasPosibles">rarezasPosibles</a></li><li><a href="global.html#resumenComb">resumenComb</a></li><li><a href="global.html#rondaEnemigos">rondaEnemigos</a></li><li><a href="global.html#saldoActual">saldoActual</a></li><li><a href="global.html#selectRareza">selectRareza</a></li><li><a href="global.html#selectTipo">selectTipo</a></li><li><a href="global.html#turnoCombate">turnoCombate</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Sun Nov 30 2025 20:19:41 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

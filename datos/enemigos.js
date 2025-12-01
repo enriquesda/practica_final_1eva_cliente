@@ -1,3 +1,20 @@
+/**
+ * @fileoverview Este archivo contiene la definición de los enemigos básicos
+ * que el jugador encuentra en el juego. Se exporta un array de objetos
+ * con las estadísticas base para la clase Enemigo.
+ * @exports {Array<DatosEnemigo>} El array con la lista de enemigos basicos.
+ */
+
+/**
+ * Un objeto que define las características y estadísticas de un enemigo normal.
+ * @typedef {Object} DatosEnemigo
+ * @property {string} nombre - El nombre del enemigo (ej: 'Trasgo').
+ * @property {string} avatar - La ruta a la imagen del enemigo.
+ * @property {number} nivelAtaque - El daño que hace el enemigo en un turno.
+ * @property {number} puntosVida - La vida total que tiene el enemigo.
+ * @property {number} experiencia - La exp que da al ser derrotado.
+ */
+
 export default[
   {
     "nombre": "Trasgo",

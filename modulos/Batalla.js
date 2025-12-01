@@ -2,17 +2,30 @@ import { Jugador } from "../recursos/Jugador.js";
 import { Enemigos } from "../recursos/Enemigos.js";
 import { Jefes} from "../recursos/Jefes.js";
 
+/**
+ * Simula un turno de combate simple por turnos entre el jugador y un enemigo.
+ * @param {Jugador} jugador - El objeto Jugador con sus stats actuales.
+ * @param {Enemigos|Jefes} enemigo - El objeto Enemigo o Jefe contra el que se lucha.
+ * @returns {{experiencia: number, log: string[]}} Un objeto con la experiencia ganada y el historial del combate.
+ */
 function combate(jugador,enemigo ) {
+    /** @type {string[]} */
     let logBatalla = []; 
+    
+    /**
+     * Añade un mensaje al historial y lo muestra por consola.
+     * @param {string} mensaje
+     */
     const registrarMensaje = (mensaje) => {
         logBatalla.push(mensaje); 
         console.log(mensaje); 
     };
-    console.log("entramos en combate")
-    console.log(jugador.vidaTotal)
-    console.log(enemigo.puntosVida )
+
+    // El combate sigue mientras los dos sigan vivos
     while (jugador.vidaTotal > 0 && enemigo.puntosVida > 0) {
         console.log("entramos en combate")
+        
+        // 1. Turno del Jugador (el jugador siempre ataca primero)
         enemigo.puntosVida -= jugador.ataqueTotal;
         registrarMensaje(`${jugador.nombre} ataca a ${enemigo.nombre}. Vida restante: ${enemigo.puntosVida.toFixed(2)}`);
         
@@ -21,24 +34,30 @@ function combate(jugador,enemigo ) {
             
             let experienciaGanada = enemigo.experiencia + 100;
             
+            // Si el enemigo es una instancia de Jefe, damos más experiencia
             if (enemigo instanceof Jefes) {
                 experienciaGanada *= 2;
                 registrarMensaje(`¡Es un JEFE! La experiencia se duplica.`);
             }
             registrarMensaje(`${jugador.nombre} gana ${experienciaGanada} puntos de experiencia.`);
+            
+            // Devuelve la experiencia y el log de victoria
             return { experiencia: experienciaGanada, log: logBatalla };
         }
 
-        jugador.vidaTotal -= enemigo.nivelAtaque;
+        // 2. Turno del Enemigo (solo si sigue vivo)
+        jugador.vidaTotal -= enemigo.nivelAtaque; 
         registrarMensaje(`${enemigo.nombre} ataca a ${jugador.nombre}. Vida restante: ${jugador.vidaTotal.toFixed(2)}`);
 
         if (jugador.vidaTotal <= 0) {
             registrarMensaje(`${enemigo.nombre} ha derrotado a ${jugador.nombre}. Fin del juego.`);
             
-            // 4. Devuelve el objeto con el ARRAY de log
+            // Devuelve 0 experiencia y el log de derrota
             return { experiencia: 0, log: logBatalla };
         }
     }
+    
+    // Por si el bucle termina por una condición inicial (no debería pasar)
     return { experiencia: 0, log: logBatalla };
 }
 export { combate };
