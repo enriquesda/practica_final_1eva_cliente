@@ -2,7 +2,7 @@
  * @fileoverview Script principal del juego.
  * Controla el flujo de escenas, la inicialización de estado, la lógica del mercado,
  * la gestión del inventario y la orquestación de los combates.
- * @author [Tu Nombre/Alias de Alumno]
+ * @author [Enrique Ambrona Valverde]
  */
 
 import { Mercado } from './modulos/Mercado.js';
@@ -104,7 +104,7 @@ function actualizarPreview(stats) {
     document.getElementById('preview-ataque').textContent = `Ataque: ${stats.ataque}`;
     document.getElementById('preview-defensa').textContent = `Defensa: ${stats.defensa}`;
     
-    // 🆕 Asegura que el mensaje de selección se oculte
+    // Asegura que el mensaje de selección se oculte
     const mensaje = document.getElementById('preview-mensaje');
     if (mensaje) {
         mensaje.style.display = 'none';
@@ -146,7 +146,7 @@ function pintarSelectorPersonaje() {
         });
     });
     
-    // 🆕 Asegura que el mensaje de selección se muestre al inicio
+    //Asegura que el mensaje de selección se muestre al inicio
     const mensaje = document.getElementById('preview-mensaje');
     if (mensaje) {
         mensaje.style.display = 'block';
@@ -208,7 +208,7 @@ function pintarMercado(productosFiltrados = productos) {
             let objetoParaCarrito = producto;
             let esOferta = false;
             
-            // 🆕 Detección si el producto ya está en el carrito para restaurar el estado
+            //Detección si el producto ya está en el carrito para restaurar el estado
             const estaEnCarrito = carrito.some(p => p.nombre === producto.nombre);
             
             if (producto.rareza === rarezaOferta) {
@@ -229,7 +229,7 @@ function pintarMercado(productosFiltrados = productos) {
             const productoDiv = document.createElement('div');
             productoDiv.classList.add('producto-mercado');
             
-            // 🆕 Restaurar el estado visual si está en carrito
+            //Restaurar el estado visual si está en carrito
             if (estaEnCarrito) {
                 productoDiv.classList.add('en-carrito');
             }
@@ -273,10 +273,8 @@ function pintarMercado(productosFiltrados = productos) {
             //boton comprar
             const botonComprar = document.createElement('button');
             
-            // 🆕 Restaurar el texto del botón
             botonComprar.textContent = estaEnCarrito ? 'Retirar' : 'Añadir';
             
-            // Asegúrate de que se usa la versión con el precio descontado si hay oferta
             const productoFinal = esOferta ? objetoParaCarrito : producto;
             
             botonComprar.addEventListener('click', (e) => {
@@ -733,7 +731,6 @@ if (btnScene0) {
 const btnScene1 = document.getElementById('btn-scene-1');
 if (btnScene1) {
     btnScene1.addEventListener('click', () => {
-        // Aseguramos que el saldo esté al máximo al entrar al mercado
         saldoActual = MONEDAS_INICIALES; 
         costoTotalCarrito = 0;
         
@@ -752,7 +749,6 @@ if (btnComprar) {
         if (carrito.length === 0) {
             jugador.actualizarEstadisticas();
             console.log('El carrito está vacío. Añade productos para comprar.');
-            // 🆕 Llamamos a la función de pintado para la Escena 3 aunque el carrito esté vacío
             pintarResumenJugadorEscena3(jugador);
             cambiarEscena('scene-3');
             return;
@@ -762,32 +758,24 @@ if (btnComprar) {
             alert("¡No tienes suficientes monedas para esta compra!");
             return;
         }
-        
-        // 1. Deducir el saldo
         saldoActual -= costoTotalCarrito;
-
-        // 2. Procesar la compra
         carrito.forEach(p => {
             jugador.aniadirObjeto(p);
             inventario.push(p);
             console.log(`Has comprado: ${p.nombre} por ${p.precio}`);
         });
         
-        // 3. Resetear carrito y su costo
         carrito = [];
         costoTotalCarrito = 0;
         
-        // 4. Actualizar las estadísticas y la UI
         jugador.actualizarEstadisticas();
         document.getElementById('stat-vidat').textContent = 'Vida: ' + jugador.vidaTotal;
         document.getElementById('stat-ataquet').textContent = 'Ataque: ' + jugador.ataqueTotal;
         document.getElementById('stat-defensat').textContent = 'Defensa: ' + jugador.defensaFinal;
         document.getElementById('stat-puntost').textContent = 'Puntos: ' + jugador.puntos;
-        
-        // 5. Actualizar la UI del mercado (muestra el saldo restante de esta ronda)
+
         actualizarUIMercado();
-        
-        // 6. Pintar la Escena 3 con los datos actualizados
+
         pintarResumenJugadorEscena3(jugador);
         cambiarEscena('scene-3');
     });
@@ -796,7 +784,6 @@ if (btnComprar) {
 const btnScene3 = document.getElementById('btn-scene-3');
 if (btnScene3) {
     btnScene3.addEventListener('click', () => {
-        // 🆕 Pinta la lista de enemigos antes de cambiar a la escena 4
         pintarEnemigos(); 
         cambiarEscena('scene-4');
     });
