@@ -28,7 +28,7 @@ const inventoryContainer = document.getElementById('inventory-container');
 /** @type {Object | null} */
 let personajeSeleccionado = null;
 /** @type {Jugador} */
-let jugador = new Jugador('Cacharro', '/imagenes/personaje.png', 0, 100, 10, 5)
+let jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5)
 /** @type {HTMLElement} */
 const miFooter = document.querySelector('footer');
 /** @type {string[]} */
@@ -236,7 +236,7 @@ function pintarMercado(productosFiltrados = productos) {
             
             //Imagen del producto
             const imgProducto = document.createElement('img');
-            imgProducto.src = '/imagenes/' + producto.imagen;
+            imgProducto.src = 'imagenes/' + producto.imagen;
             imgProducto.alt = producto.nombre;
             productoDiv.appendChild(imgProducto);
             //nombre del producto
@@ -435,7 +435,7 @@ function pintarFooter() {
 
         // Crear la imagen
         const itemImg = document.createElement('img');
-        itemImg.src = '/imagenes/' + producto.imagen;
+        itemImg.src = 'imagenes/' + producto.imagen;
         itemImg.alt = producto.nombre;
 
         slotDiv.appendChild(itemImg);
@@ -520,7 +520,7 @@ function pintarEnemigos() {
         enemigoDiv.classList.add('tarjeta-enemigo');
         //Imagen del producto
         const imgEnemigo = document.createElement('img');
-        imgEnemigo.src = '/imagenes/' + ene.avatar;
+        imgEnemigo.src = 'imagenes/' + ene.avatar;
         imgEnemigo.alt = ene.nombre;
         enemigoDiv.appendChild(imgEnemigo);
         //nombre del producto
@@ -543,7 +543,7 @@ if (mercadoContainer) {
         enemigoDiv.classList.add('tarjeta-enemigo');
         //Imagen del producto
         const imgEnemigo = document.createElement('img');
-        imgEnemigo.src = '/imagenes/' + ene.avatar;
+        imgEnemigo.src = 'imagenes/' + ene.avatar;
         imgEnemigo.alt = ene.nombre;
         enemigoDiv.appendChild(imgEnemigo);
         //nombre del producto
@@ -592,7 +592,7 @@ const turnoCombate = () => {
     jugadorComb.style.animation = 'none';
     enemigoComb.style.animation = 'none';
     jugadorComb.src = jugador.avatar;
-    enemigoComb.src = "/imagenes/" + enemigoTurno.avatar;
+    enemigoComb.src = "imagenes/" + enemigoTurno.avatar;
     void jugadorComb.offsetWidth;
     setTimeout(() => {
         jugadorComb.style.animation = 'slideInLeft 1s ease-out forwards';
@@ -600,7 +600,7 @@ const turnoCombate = () => {
     }, 10);
     const resultado = combate(jugador, enemigoTurno);
     jugadorComb.src = jugador.avatar;
-    enemigoComb.src = "/imagenes/" + enemigoTurno.avatar;
+    enemigoComb.src = "imagenes/" + enemigoTurno.avatar;
 
     const nombreGanador = resultado.experiencia > 0 ? jugador.nombre : enemigoTurno.nombre;
     const ganadorCom = document.createElement('h2');
@@ -635,7 +635,7 @@ const turnoCombate = () => {
  * Reinicia el estado del juego para comenzar una nueva partida.
  */
 function inicializarEstado() {
-    jugador = new Jugador('Cacharro', '/imagenes/personaje.png', 0, 100, 10, 5);
+    jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
     pintarSelectorPersonaje();
     const btnScene0 = document.getElementById('btn-scene-0');
     if (btnScene0) {
