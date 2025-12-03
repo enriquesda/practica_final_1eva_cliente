@@ -87,51 +87,90 @@ ESTILO FOOTER
 */
 /* Contenedor del Inventario */
 #inventory-container {
-    width: 70%;
+    width: 60%;
     display: grid;
-    grid-auto-flow: column;
     grid-auto-columns: 1fr;
-    gap: 5px;
+    grid-auto-flow: column;
+    gap: 12px;
     border: var(--main-border);
-    padding: 3px;
+    padding: 12px;
     background-color: var(--secundary-color);
     box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: space-evenly;
     align-content: center;
+    border-radius: 20px;
 }
 
 /* Ranura del Inventario */
 .inventory-slot {
+    border-radius: 20px;
     border: 2px solid var(--primary-color);
-    background-color: var(--dark-border);
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding: 2px;
+    padding: 0px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
-/* El fondo del slot será claro, el borde del slot será el marco */
+/*slots */
 .inventory-slot.vacio,
 .inventory-slot.con-item {
-    background-color: var(--border-color);
+    background-color: var(--secundary-color);
 }
 
 /* Imagen de ítem en ranura */
 .inventory-slot img {
-    max-width: 90%;
+    max-width: 80%;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+    transition: transform 0.3s ease-out;
 }
 
-/*
-===================================================
+.inventory-slot:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), inset 0 0 5px rgba(0, 0, 0, 0.7);
+}
 
-ESTILO ESCENA 0 (SELECCIÓN DE PERSONAJE)
+.inventory-slot:hover img {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
 
-===================================================
-*/
+/*Boton principal*/
+.btn-base {
+    border: var(--main-border);
+    border-radius: 15px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--button-color);
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 15px 40px;
+    transition: all 0.2s ease;
+}
+
+/* Estilo de Hover Común */
+.btn-base:hover:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+    background-color: #e8c68c;
+}
+
+/* Estilo Deshabilitado Común */
+.btn-base:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: #C0C0C0;
+    color: #666;
+    box-shadow: none;
+    transform: translateY(0);
+}
+
 /*
 ===================================================
 
@@ -187,13 +226,13 @@ ESTILO ESCENA 0 (SELECCIÓN DE PERSONAJE)
     display: flex;
     justify-content: space-around;
     gap: 15px;
-    width: 90%;
-    flex-grow: 1; 
+    width: 80%;
+    flex-grow: 1;
 }
 
 /* Tarjeta individual de personaje */
 .tarjeta-personaje {
-    width: 30%;
+    width: 25%;
     border: 4px solid var(--accent-color);
     border-radius: 10px;
     background-color: var(--secundary-color);
@@ -211,7 +250,7 @@ ESTILO ESCENA 0 (SELECCIÓN DE PERSONAJE)
 .tarjeta-personaje:hover {
     transform: translateY(-3px);
     box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.4);
-    background-color: #EDE4D4;
+    background-color: #e8c68c;
 }
 
 /* Estado seleccionado (Color de acento que combina) */
@@ -223,16 +262,21 @@ ESTILO ESCENA 0 (SELECCIÓN DE PERSONAJE)
 .tarjeta-personaje img {
     width: 100%;
     max-height: 70%;
-    object-fit: contain;
     border: 2px solid var(--primary-color);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     margin-bottom: 5px;
 }
 
+.tarjeta-personaje:hover img {
+    transform: scale(1.01);
+    transition: transform 0.3s ease-in-out;
+}
+
 .tarjeta-personaje h3 {
-    font-size: 1.5rem;
+    font-size: 4rem;
     margin-top: 5px;
-    text-shadow: 1px 1px 0 #FFF;
+    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4);
 }
 
 /* --- Previsualización de Stats --- */
@@ -267,32 +311,6 @@ ESTILO ESCENA 0 (SELECCIÓN DE PERSONAJE)
     align-items: center;
 }
 
-#btn-scene-0 {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 15px 40px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#btn-scene-0:hover:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
-}
-
-/* Estilo para botón deshabilitado */
-#btn-scene-0:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-    background-color: #C0C0C0;
-    color: #666;
-    box-shadow: none;
-}
-
 /*
 ===================================================
 
@@ -310,7 +328,7 @@ ESTILO ESCENA 1
 }
 
 /* Primer div (Contenedor de jugador) */
-#scene-1>div:first-child {
+#escena-1-jugador {
     border: var(--main-border);
     border-radius: 20px;
     background-color: var(--secundary-color);
@@ -323,7 +341,7 @@ ESTILO ESCENA 1
 }
 
 /* Imagen del jugador */
-#scene-1>div:first-child img {
+#escena-1-jugador img {
     height: 85%;
     border: var(--main-border);
     border-radius: 15px;
@@ -333,7 +351,7 @@ ESTILO ESCENA 1
 }
 
 /* Nombre del jugador (H2) */
-#scene-1>div:first-child h2 {
+#escena-1-jugador h2 {
     color: var(--dark-border);
     font-size: 3.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -342,7 +360,7 @@ ESTILO ESCENA 1
 }
 
 /* Segundo div (Contenedor de stats) */
-#scene-1>div:nth-child(2) {
+#escena-1-stats {
     height: 40%;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -377,27 +395,6 @@ ESTILO ESCENA 1
     align-items: center;
     height: 15%;
 }
-
-/* Botón de Continuar */
-#scene-1>div:nth-child(3) button {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 15px 40px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Hover del botón */
-#scene-1>div:nth-child(3) button:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
-}
-
-
 
 /*
 ===================================================
@@ -454,8 +451,6 @@ ESTILO ESCENA 2
     border-radius: 10px;
     background-color: var(--dark-border);
     box-shadow: var(--shadow-3d);
-
-    /* Permite que el buscador ocupe el espacio restante */
     flex-grow: 1;
 }
 
@@ -522,7 +517,12 @@ ESTILO ESCENA 2
     text-align: center;
     padding: 5px;
     color: var(--accent-color);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.producto-mercado:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 8px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* Imagen de Producto */
@@ -571,8 +571,18 @@ ESTILO ESCENA 2
 
 /* Producto en Carrito */
 .producto-mercado.en-carrito {
-    background-color: #8DAB7B;
-    box-shadow: 2px 2px 5px #4D643F;
+    background-color: #A99079;
+    border-color: var(--button-color);
+    box-shadow: 0 0 8px 2px var(--button-color);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.producto-mercado button:hover {
+    transform: translateY(1px);
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+    background-color: var(--secundary-color);
+    border-color: var(--button-color);
 }
 
 /* Contenedor del Botón Comprar */
@@ -581,104 +591,7 @@ ESTILO ESCENA 2
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-}
-
-/* Botón Comprar */
-#btn-scene-2 {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 10px 30px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Hover del Botón Comprar */
-#btn-scene-2:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
-}
-
-
-
-/*
-===================================================
-
-ESTILO ESCENA 3
-
-===================================================
-*/
-/* Contenedor de la Escena 3 */
-#scene-3 {
-    margin: 16px;
-    height: 100%;
-    color: var(--accent-color);
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* Primer div (Contenedor de jugador) */
-#scene-3>div:first-child {
-    border: var(--main-border);
-    border-radius: 20px;
-    background-color: var(--secundary-color);
-    height: 45%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    box-shadow: var(--player-shadow);
-}
-
-/* Imagen del jugador */
-#scene-3>div:first-child img {
-    height: 85%;
-    border: var(--main-border);
-    border-radius: 15px;
-    background-color: var(--secundary-color);
-    padding: 8px;
-    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.3);
-}
-
-/* Nombre del jugador (H2) */
-#scene-3>div:first-child h2 {
-    color: var(--dark-border);
-    font-size: 3.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin-right: 0;
-    font-family: var(--font-impact);
-}
-
-/* Segundo div (Contenedor de stats) */
-#scene-3>div:nth-child(2) {
-    height: 35%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-}
-
-/* Divs individuales de stats */
-#escena-3-stats div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 20px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-}
-
-/* Texto de las stats (P) */
-#escena-3-stats div p {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--accent-color);
+    transition: background-color 0.3s ease;
 }
 
 /* Tercer div (Contenedor del botón) */
@@ -689,24 +602,6 @@ ESTILO ESCENA 3
     height: 15%;
 }
 
-/* Botón de Continuar */
-#scene-3>div:nth-child(3) button {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 15px 40px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Hover del botón */
-#scene-3>div:nth-child(3) button:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
-}
 /* Contenedor que agrupa la info de saldo y el botón */
 #compra-footer {
     display: flex;
@@ -745,8 +640,86 @@ ESTILO ESCENA 3
     opacity: 0.6;
     background-color: #C0C0C0;
     color: #666;
-    box-shadow: none; 
+    box-shadow: none;
 }
+
+/*
+===================================================
+
+ESTILO ESCENA 3
+
+===================================================
+*/
+/* Contenedor de la Escena 3 */
+#scene-3 {
+    margin: 16px;
+    height: 100%;
+    color: var(--accent-color);
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Primer div (Contenedor de jugador) */
+#escena-3-jugador {
+    border: var(--main-border);
+    border-radius: 20px;
+    background-color: var(--secundary-color);
+    height: 45%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: var(--player-shadow);
+}
+
+/* Imagen del jugador */
+#escena-3-jugador img {
+    height: 85%;
+    border: var(--main-border);
+    border-radius: 15px;
+    background-color: var(--secundary-color);
+    padding: 8px;
+    box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* Nombre del jugador (H2) */
+#escena-3-jugador h2 {
+    color: var(--dark-border);
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-right: 0;
+    font-family: var(--font-impact);
+}
+
+/* Segundo div (Contenedor de stats) */
+#escena-3-stats {
+    height: 35%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+/* Divs individuales de stats */
+#escena-3-stats div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--main-border);
+    border-radius: 15px;
+    padding: 20px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+}
+
+/* Texto de las stats (P) */
+#escena-3-stats div p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
 /*
 ===================================================
 
@@ -765,13 +738,13 @@ ESTILO ESCENA 4
 }
 
 /* Título de la Escena 4 (H2) */
-#scene-4 h2 {
+#scene-4>h2 {
     border: var(--main-border);
     border-radius: 15px;
     background: var(--secundary-color);
     box-shadow: var(--shadow-3d);
     color: var(--accent-color);
-    font-size: 1.2rem;
+    font-size: 3rem;
     text-align: center;
     padding: 10px;
     font-family: var(--font-title-stencil);
@@ -798,33 +771,44 @@ ESTILO ESCENA 4
     background-color: var(--secundary-color);
     box-shadow: var(--shadow-3d);
     height: 300px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding: 5px;
     color: var(--accent-color);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.tarjeta-enemigo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 0px rgba(0, 0, 0, 0.5);
+    background-color: #E8C68C;
 }
 
 /* Imagen del Enemigo*/
 .tarjeta-enemigo img {
-    max-height: 55%;
+    max-height: 65%;
     max-width: 90%;
 }
 
 /* Nombre del Enemigo (H2) */
 .tarjeta-enemigo h2 {
-    color: var(--dark-border);
-    font-size: 1.2rem;
-    margin: 5px 0;
-    border: none;
-    padding: 0;
+    border: var(--main-border);
+    border-radius: 15px;
+    background: var(--secundary-color);
+    box-shadow: var(--shadow-3d);
+    color: var(--accent-color);
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px;
     font-family: var(--font-impact);
 }
 
 /* Stats del Enemigo (P) */
 .tarjeta-enemigo p {
+    margin: 12px;
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
@@ -835,26 +819,6 @@ ESTILO ESCENA 4
     justify-content: center;
     align-items: center;
 }
-
-/* Botón Continuar */
-#btn-scene-4 {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 10px 30px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Hover del Botón Continuar */
-#btn-scene-4:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
-}
-
 
 /*
 ===================================================
@@ -879,7 +843,7 @@ ESTILO ESCENA 5
     background: var(--secundary-color);
     box-shadow: var(--shadow-3d);
     color: var(--accent-color);
-    font-size: 1.2rem;
+    font-size: 3rem;
     text-align: center;
     padding: 10px;
     font-family: var(--font-title-stencil);
@@ -933,14 +897,21 @@ ESTILO ESCENA 5
 
 /* Contenedor del Resumen/Log */
 #resumenComb {
-    flex-grow: 2;
-    height: 10%;
+    flex-grow: 1;
+    height: 100%;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     color: var(--secundary-color);
     font-size: 0.9rem;
     overflow-y: auto;
+}
+
+#combate-footer {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    flex-grow: 2;
 }
 
 /* Título de Ganador (H2 en Log) */
@@ -968,33 +939,11 @@ ESTILO ESCENA 5
     line-height: 1.2;
 }
 
-
-/* Contenedor del Botón Continuar */
-#scene-5>div:last-child {
+#combate-footer>div:last-child {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 60px;
-}
-
-/* Botón Continuar */
-#btn-scene-5 {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 10px 30px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--button-color);
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 0;
-}
-
-/* Hover del Botón Continuar */
-#btn-scene-5:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    height: auto;
 }
 
 /*
@@ -1083,22 +1032,639 @@ ESTILO ESCENA 6
     margin-top: 20px;
 }
 
-/* Botón Reiniciar */
-#btn-scene-6 {
-    border: var(--main-border);
-    border-radius: 15px;
-    padding: 15px 40px;
-    background: var(--secundary-color);
-    box-shadow: var(--shadow-3d);
-    color: var(--dark-border);
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
+/*
+===================================================
+MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
+===================================================
+*/
+
+/* ========================================
+(max 360px)
+======================================== */
+@media (max-width: 360px) {
+    body {
+        grid-template-rows: auto 75vh 10vh;
+        font-size: 14px;
+    }
+
+    head h1 {
+        font-size: 1.2rem;
+        line-height: 1.2;
+        padding: 5px;
+    }
+
+    footer.visible {
+        height: auto;
+        padding: 5px;
+    }
+
+    #inventory-container {
+        width: 98%;
+        gap: 2px;
+        padding: 2px;
+    }
+
+    /* ESCENA 0 */
+    #scene-0 {
+        margin: 5px;
+        gap: 5px;
+    }
+
+    #scene-0 h2 {
+        font-size: 1.2rem;
+        width: 98%;
+        padding: 5px;
+    }
+
+    #input-nombre {
+        width: 90%;
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    #select-personaje {
+        flex-direction: column;
+        width: 95%;
+        gap: 10px;
+    }
+
+    .tarjeta-personaje {
+        width: 100%;
+        padding: 5px;
+        min-height: auto;
+    }
+
+    .tarjeta-personaje h3 {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        margin-top: 2px;
+        white-space: nowrap;
+    }
+
+    .tarjeta-personaje img {
+        max-height: 150px;
+        width: auto;
+        max-width: 100%;
+    }
+
+    #stats-preview {
+        width: 98%;
+        padding: 5px 10px;
+    }
+
+    #btn-scene-0 {
+        font-size: 1.2rem;
+        padding: 8px 20px;
+    }
+
+    /* ESCENA 1 y 3 */
+    #scene-1,
+    #scene-3 {
+        margin: 5px;
+        gap: 5px;
+    }
+
+    #escena-1-jugador,
+    #escena-3-jugador {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    #escena-1-jugador img,
+    #escena-3-jugador img {
+        height: auto;
+        width: 50%;
+        max-width: 150px;
+    }
+
+    #escena-1-jugador h2,
+    #escena-3-jugador h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    #escena-1-stats,
+    #escena-3-stats {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        height: auto;
+    }
+
+    #escena-1-stats div p,
+    #escena-3-stats div p {
+        font-size: 1rem;
+    }
+
+    /* ESCENA 2 - Mercado */
+    #scene-2 {
+        margin: 5px;
+    }
+
+    #scene-2 h2 {
+        font-size: 1.2rem;
+        max-width: 100%;
+        padding: 8px;
+    }
+
+    #scene-2-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #mercado-buscador {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #mercado {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 8px;
+    }
+
+    .producto-mercado {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 280px;
+        max-width: 100%;
+    }
+
+    .producto-mercado img {
+        max-height: 100px;
+        object-fit: contain;
+    }
+
+    .producto-mercado h2 {
+        font-size: 1.1rem !important;
+        margin: 3px 0;
+    }
+
+    .producto-mercado h3 {
+        font-size: 0.95rem;
+    }
+
+    .producto-stats {
+        font-size: 0.85rem;
+    }
+
+    #compra-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #saldo-info {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    /* ESCENA 4 - Enemigos */
+    #scene-4 {
+        margin: 5px;
+    }
+
+    #scene-4 h2 {
+        font-size: 2rem;
+        padding: 8px;
+    }
+
+    #enemigos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 8px;
+    }
+
+    .tarjeta-enemigo {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 260px;
+        max-width: 100%;
+    }
+
+    .tarjeta-enemigo img {
+        max-height: 110px;
+        width: auto;
+    }
+
+    .tarjeta-enemigo h2 {
+        font-size: 1.5rem !important;
+        padding: 6px;
+    }
+
+    .tarjeta-enemigo p {
+        font-size: 0.85rem;
+        margin: 8px;
+    }
+
+    /* ESCENA 5 - Combate */
+    #scene-5 {
+        margin: 5px;
+        gap: 8px;
+    }
+
+    #scene-5 h2 {
+        font-size: 2rem;
+        padding: 8px;
+    }
+
+    #combate {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #turnoComb {
+        flex-direction: row;
+        height: 30% !important;
+        min-height: 150px;
+        flex-grow: 0 !important;
+        gap: 5px;
+    }
+
+    #jugadorComb,
+    #enemigoComb {
+        max-width: 35%;
+        max-height: 140px;
+        object-fit: contain;
+    }
+
+    #turnoComb h2 {
+        font-size: 1.8rem;
+    }
+
+    #combate-footer {
+        flex-direction: column;
+        flex-grow: 1 !important;
+        height: auto;
+        gap: 10px;
+    }
+
+    #resumenComb {
+        font-size: 0.8rem;
+        flex-grow: 1;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    /* ESCENA 6 */
+    #scene-6 h2 {
+        font-size: 1.5rem;
+        width: 95%;
+        padding: 10px;
+    }
+
+    #scene-6 p {
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .btn-base {
+        font-size: 1.5rem;
+        padding: 10px 25px;
+    }
 }
 
-/* Hover del Botón Reiniciar */
-#btn-scene-6:hover {
-    transform: translateY(2px);
-    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.4);
+/* ========================================
+  (340px - 860px)
+======================================== */
+
+@media (min-width: 340px) and (max-width: 860px) {
+
+  /*escena 0*/
+  #scene-0 {
+    margin: 8px;
+    gap: 10px;
+  }
+
+  #scene-0 h2 {
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    width: 100%;
+  }
+
+  #select-personaje {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .tarjeta-personaje {
+    width: 48%;
+    min-height: auto;
+    padding: 8px;
+  }
+
+  .tarjeta-personaje h3 {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .tarjeta-personaje img {
+    max-height: 150px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  #stats-preview {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  /*escena 1 */
+  #scene-1 {
+    margin: 8px;
+    gap: 10px;
+  }
+
+  #escena-1-jugador {
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  #escena-1-jugador h2 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    text-align: center;
+  }
+
+  #escena-1-jugador img {
+    width: 45%;
+    max-width: 180px;
+  }
+
+  #escena-1-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    height: auto;
+  }
+
+  #escena-1-stats div p {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+  }
+
+  /*escena 2 */
+  #scene-2-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  #scene-2 h2 {
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+  }
+
+  #mercado-buscador {
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  #mercado-buscador input[type="text"],
+  #mercado-buscador select,
+  #btn-limpiar-filtros {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #mercado {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .producto-mercado {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 280px;
+  }
+
+  .producto-mercado img {
+    max-height: 120px;
+    object-fit: contain;
+  }
+
+  .producto-mercado h2 {
+    font-size: clamp(1rem, 2.5vw, 1.3rem) !important;
+  }
+
+  .producto-stats {
+    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+    line-height: 1.2;
+  }
+
+  #compra-footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  #saldo-info {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  #btn-scene-2 {
+    width: 100%;
+  }
+
+  /*esscena 3*/
+  #scene-3 {
+    margin: 8px;
+    gap: 10px;
+  }
+
+  #escena-3-jugador {
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  #escena-3-jugador img {
+    width: 45%;
+    max-width: 180px;
+  }
+
+  #escena-3-jugador h2 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    text-align: center;
+  }
+
+  #escena-3-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  #escena-3-stats div p {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+  }
+
+  /*escnea 4*/
+  #scene-4 > h2 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    text-align: center;
+    padding: 8px;
+    width: 100%;
+  }
+
+  #enemigos {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .tarjeta-enemigo {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 260px;
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .tarjeta-enemigo img {
+    max-height: 120px;
+    object-fit: contain;
+  }
+
+  .tarjeta-enemigo h2 {
+    font-size: clamp(1rem, 3vw, 1.4rem) !important;
+    padding: 6px;
+  }
+
+  .tarjeta-enemigo p {
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    line-height: 1.2;
+    margin: 6px 0;
+  }
+
+  #scene-4 > div:last-child {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #btn-scene-4 {
+    width: 100%;
+    font-size: 1.2rem;
+  }
+
+  /*escena 5*/
+  #scene-5 {
+    margin: 8px;
+    gap: 10px;
+  }
+
+  #scene-5 h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  #combate {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #turnoComb {
+    flex-direction: row;
+    height: 30% !important;
+    min-height: 150px;
+    gap: 5px;
+  }
+
+  #jugadorComb,
+  #enemigoComb {
+    max-width: 40%;
+    max-height: 140px;
+    object-fit: contain;
+  }
+
+  #turnoComb h2 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+  }
+
+  #combate-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #resumenComb {
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  /* escena 6*/
+  #scene-6 h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    width: 95%;
+    padding: 10px;
+  }
+
+  #scene-6 p {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    padding: 10px;
+  }
+
+  .btn-base {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    padding: 10px 25px;
+  }
+}
+
+
+/* ========================================
+(840px - 1024px)
+======================================== */
+@media (min-width: 840px) and (max-width: 1480px) {
+    .tarjeta-personaje h3 {
+        font-size: clamp(2rem, 2.8vw, 2.5rem);
+        text-align: center;
+        white-space: normal; 
+        line-height: 1.1;
+    }
+
+    /* escena 2*/
+    #mercado {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .producto-mercado {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 340px;
+    }
+
+    .producto-mercado img {
+        max-height: 150px;
+    }
+
+    .producto-mercado h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .producto-stats {
+        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+    line-height: 1.2;
+    }
+
+    /* escena 4*/
+    #enemigos {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .tarjeta-enemigo {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 320px;
+    }
+
+    .tarjeta-enemigo img {
+        max-height: 160px;
+    }
+
+    .tarjeta-enemigo h2 {
+        font-size: 1.8rem !important;
+    }
 }

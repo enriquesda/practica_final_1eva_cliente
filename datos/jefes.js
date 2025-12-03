@@ -28,10 +28,10 @@ export default[
   {
     "nombre": "Guardián de Acero",
     "avatar": "guardian.png",
-    "nivelAtaque": 48,
+    "nivelAtaque": 55,
     "puntosVida": 70,
     "experiencia": 55,
-    "multiplicadorDanio": 2.1
+    "multiplicadorDanio": 2.4
   },
   {
     "nombre": "Cíclope Ancestral",

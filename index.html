@@ -36,7 +36,7 @@
             </div>
 
             <div>
-                <button id="btn-scene-0" disabled>Comenzar Aventura</button>
+                <button id="btn-scene-0" class="btn-base" disabled>Comenzar Aventura</button>
             </div>
         </div>
 
@@ -60,7 +60,7 @@
 
             </div>
             <div>
-                <button id="btn-scene-1">Continuar</button>
+                <button id="btn-scene-1" class="btn-base">Continuar</button>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
                     <p>Monedas disponibles: <span id="saldo-disponible">9000</span></p>
                     <p>Total de la compra: <span id="total-compra">0</span></p>
                 </div>
-                <button id="btn-scene-2">Comprar</button>
+                <button id="btn-scene-2" class="btn-base">Comprar</button>
             </div>
         </div>
 
@@ -112,7 +112,7 @@
 
             </div>
             <div>
-                <button id="btn-scene-3">Continuar</button>
+                <button id="btn-scene-3" class="btn-base">Continuar</button>
             </div>
         </div>
 
@@ -121,7 +121,7 @@
             <div id="enemigos">
             </div>
             <div>
-                <button id="btn-scene-4">Continuar</button>
+                <button id="btn-scene-4" class="btn-base">Continuar</button>
             </div>
         </div>
 
@@ -133,11 +133,15 @@
                     <h2>VS</h2>
                     <img id="enemigoComb">
                 </div>
-                <div id="resumenComb">
+
+                <div id="combate-footer">
+                    <div id="resumenComb">
+                    </div>
+                    <div>
+                        <button id="btn-scene-5" class="btn-base">Continuar</button>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button id="btn-scene-5">Continuar</button>
+
             </div>
         </div>
 
@@ -145,7 +149,7 @@
             <h2 id="finalBatalla"></h2>
             <p id="puntoTotal"></p>
             <div>
-                <button id="btn-scene-6">reiniciar</button>
+                <button id="btn-scene-6" class="btn-base">reiniciar</button>
             </div>
         </div>
 
@@ -155,6 +159,8 @@
         <div id="inventory-container">
         </div>
     </footer>
+    <script type="module" src="./main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script type="module" src="./main.js"></script>
 </body>
 

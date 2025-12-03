@@ -827,6 +827,7 @@ if (btnScene5) {
                 puntoTotalElement.textContent = "Puntos totales ganados: " + jugador.puntuacion;
             }
             cambiarEscena('scene-6');
+            lanzarConfetiFinal();
             return;
         }
         const resultadoCombate = turnoCombate();
@@ -852,5 +853,25 @@ if (btnScene6) {
     btnScene6.addEventListener('click', () => {
         inicializarEstado();
         cambiarEscena('scene-0');
+    });
+}
+
+
+
+
+
+
+
+
+
+// Función para disparar ráfagas de confeti continuo
+function lanzarConfetiFinal() {
+    confetti({
+        particleCount: 200, // nº particulas
+        spread: 160,        // Dispersión
+        startVelocity: 40,  // Velocidad
+        origin: { y: 0.1, x: 0.5 }, // Origen
+        zIndex: 9999,
+        colors: ['#FFD700', '#D4C19A', '#8B0000', '#5C4033'] // Tus colores
     });
 }
