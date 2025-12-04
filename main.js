@@ -89,6 +89,8 @@ function crearEquipoBatalla(enemigosArr, jefesArr, numEnemigos = 3, numJefes = 1
 /** @type {Array<Enemigos | Jefes>}*/
 let rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 4, 2);
 console.log(rondaEnemigos);
+
+
 ////////////////////////////////////////////////////////////////////////////
 //escena 0 Eleccion personaje
 ////////////////////////////////////////////////////////////////////////////
@@ -103,7 +105,7 @@ function actualizarPreview(stats) {
     document.getElementById('preview-vida').textContent = `Vida: ${stats.vida}`;
     document.getElementById('preview-ataque').textContent = `Ataque: ${stats.ataque}`;
     document.getElementById('preview-defensa').textContent = `Defensa: ${stats.defensa}`;
-    
+
     // Asegura que el mensaje de selección se oculte
     const mensaje = document.getElementById('preview-mensaje');
     if (mensaje) {
@@ -123,8 +125,6 @@ function pintarSelectorPersonaje() {
     personajesBase.forEach(p => {
         const div = document.createElement('div');
         div.classList.add('tarjeta-personaje');
-        div.dataset.personajeId = p.id;
-
         const img = document.createElement('img');
         img.src = p.avatar;
         img.alt = p.nombreClase;
@@ -145,16 +145,29 @@ function pintarSelectorPersonaje() {
             document.getElementById('btn-scene-0').disabled = false;
         });
     });
-    
+
     //Asegura que el mensaje de selección se muestre al inicio
     const mensaje = document.getElementById('preview-mensaje');
     if (mensaje) {
         mensaje.style.display = 'block';
     }
 }
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 //escena 1 Resumen jugador
 ////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 /** @type {HTMLElement} */
 const escena1JugadorDic = document.getElementById('escena-1-jugador');
 /**
@@ -180,9 +193,17 @@ function pintarResumenJugador(jugador) {
     document.getElementById('stat-puntos').textContent = 'Puntos: ' + jugador.puntos;
 }
 
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 //escena 2 tienda de objetos
 ////////////////////////////////////////////////////////////////////////////
+
+
+
+
 /** @type {HTMLElement} */
 const mercadoContainer = document.getElementById('mercado')
 /** @type {string[]} */
@@ -207,10 +228,10 @@ function pintarMercado(productosFiltrados = productos) {
             let precioFinal = producto.precio;
             let objetoParaCarrito = producto;
             let esOferta = false;
-            
+
             //Detección si el producto ya está en el carrito para restaurar el estado
             const estaEnCarrito = carrito.some(p => p.nombre === producto.nombre);
-            
+
             if (producto.rareza === rarezaOferta) {
                 esOferta = true;
                 precioFinal = Math.floor(producto.precio * 0.85);
@@ -224,16 +245,16 @@ function pintarMercado(productosFiltrados = productos) {
                 );
             }
             console.log(producto);
-            
+
             //Tarjeta del producto
             const productoDiv = document.createElement('div');
             productoDiv.classList.add('producto-mercado');
-            
+
             //Restaurar el estado visual si está en carrito
             if (estaEnCarrito) {
                 productoDiv.classList.add('en-carrito');
             }
-            
+
             //Imagen del producto
             const imgProducto = document.createElement('img');
             imgProducto.src = 'imagenes/' + producto.imagen;
@@ -272,13 +293,13 @@ function pintarMercado(productosFiltrados = productos) {
 
             //boton comprar
             const botonComprar = document.createElement('button');
-            
+
             botonComprar.textContent = estaEnCarrito ? 'Retirar' : 'Añadir';
-            
+
             const productoFinal = esOferta ? objetoParaCarrito : producto;
-            
+
             botonComprar.addEventListener('click', (e) => {
-                manejarCarrito(productoFinal, e.currentTarget); 
+                manejarCarrito(productoFinal, e.currentTarget);
             });
             productoDiv.appendChild(botonComprar);
         });
@@ -292,6 +313,8 @@ function pintarMercado(productosFiltrados = productos) {
 function cargarOpcionesFiltro() {
     const selectTipo = document.getElementById('filtro-tipo');
     const selectRareza = document.getElementById('filtro-rareza');
+    selectTipo.innerHTML = '';
+    selectRareza.innerHTML = '';
 
     if (selectTipo && selectRareza) {
         tipoProductos.forEach(tipo => {
@@ -458,6 +481,13 @@ function pintarFooter() {
     }
 }
 
+
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 //escena 3 resumen jugador actualizado
 ////////////////////////////////////////////////////////////////////////////
@@ -485,18 +515,7 @@ function pintarResumenJugadorEscena3(jugador) {
     }
 }
 
-// El bloque de código estático anterior fue movido a la función pintarResumenJugadorEscena3 y se llama en btnScene2
-if (escena2JugadorDic) {
-    //imagen
-    const imgJugador = document.createElement('img');
-    imgJugador.src = jugador.avatar;
-    imgJugador.alt = jugador.nombre;
-    escena2JugadorDic.appendChild(imgJugador);
-    //nombre
-    const nombreJugador = document.createElement('h2');
-    nombreJugador.textContent = jugador.nombre;
-    escena2JugadorDic.appendChild(nombreJugador);
-}
+
 
 ////////////////////////////////////////////////////////////////////////////
 //escena 4 enemigos
@@ -510,8 +529,8 @@ const enemigosContainer = document.getElementById('enemigos');
 function pintarEnemigos() {
     const enemigosContainer = document.getElementById('enemigos');
     if (!enemigosContainer) return;
-    
-    enemigosContainer.innerHTML = ''; // Limpiamos
+
+    enemigosContainer.innerHTML = '';
 
     rondaEnemigos.forEach(ene => {
         console.log(ene);
@@ -535,31 +554,8 @@ function pintarEnemigos() {
     });
 }
 
-if (mercadoContainer) {
-    rondaEnemigos.forEach(ene => {
-        console.log(ene);
-        //Tarjeta del producto
-        const enemigoDiv = document.createElement('div');
-        enemigoDiv.classList.add('tarjeta-enemigo');
-        //Imagen del producto
-        const imgEnemigo = document.createElement('img');
-        imgEnemigo.src = 'imagenes/' + ene.avatar;
-        imgEnemigo.alt = ene.nombre;
-        enemigoDiv.appendChild(imgEnemigo);
-        //nombre del producto
-        const nombreEnemigo = document.createElement('h2');
-        nombreEnemigo.textContent = ene.nombre;
-        enemigoDiv.appendChild(nombreEnemigo);
-        //stats del producto
-        const atEnemigo = document.createElement('p');
-        atEnemigo.textContent = ene.nivelAtaque + " puntos de ataque"
-        enemigoDiv.appendChild(atEnemigo);
-        enemigosContainer.appendChild(enemigoDiv);
 
-    });
-} else {
-    console.error('No se encontró el contenedor del mercado');
-}
+
 
 ////////////////////////////////////////////////////////////////////////////
 //escena 5 enemigos
@@ -626,6 +622,15 @@ const turnoCombate = () => {
 
     return { experiencia: resultado.experiencia, enemigoDerrotado: enemigoTurno.puntosVida <= 0 };
 }
+
+
+
+
+
+
+
+
+
 ////////////////////////////////////////////////////////////////////////////
 //escena 6
 //resumen de la partida y volver a jugar
@@ -731,12 +736,12 @@ if (btnScene0) {
 const btnScene1 = document.getElementById('btn-scene-1');
 if (btnScene1) {
     btnScene1.addEventListener('click', () => {
-        saldoActual = MONEDAS_INICIALES; 
+        saldoActual = MONEDAS_INICIALES;
         costoTotalCarrito = 0;
-        
-        pintarMercado(); 
+
+        pintarMercado();
         actualizarUIMercado();
-        
+
         cambiarEscena('scene-2');
     });
 }
@@ -764,10 +769,10 @@ if (btnComprar) {
             inventario.push(p);
             console.log(`Has comprado: ${p.nombre} por ${p.precio}`);
         });
-        
+
         carrito = [];
         costoTotalCarrito = 0;
-        
+
         jugador.actualizarEstadisticas();
         document.getElementById('stat-vidat').textContent = 'Vida: ' + jugador.vidaTotal;
         document.getElementById('stat-ataquet').textContent = 'Ataque: ' + jugador.ataqueTotal;
@@ -784,7 +789,7 @@ if (btnComprar) {
 const btnScene3 = document.getElementById('btn-scene-3');
 if (btnScene3) {
     btnScene3.addEventListener('click', () => {
-        pintarEnemigos(); 
+        pintarEnemigos();
         cambiarEscena('scene-4');
     });
 }
@@ -813,6 +818,8 @@ if (btnScene5) {
             if (puntoTotalElement) {
                 puntoTotalElement.textContent = "Puntos totales ganados: " + jugador.puntuacion;
             }
+            guardarPartida();
+            cargarRanking();
             cambiarEscena('scene-6');
             lanzarConfetiFinal();
             return;
@@ -862,3 +869,201 @@ function lanzarConfetiFinal() {
         colors: ['#FFD700', '#D4C19A', '#8B0000', '#5C4033'] // Tus colores
     });
 }
+
+
+
+
+
+function cargarRanking() {
+    const cuerpoTabla = document.getElementById('rankingBody');
+    let records = JSON.parse(localStorage.getItem('recordsJuego')) || [];
+
+    records.sort((a, b) => b.puntos - a.puntos);
+
+    cuerpoTabla.innerHTML = '';
+
+    records.forEach(jugador => {
+        const fila = document.createElement('tr');
+
+        fila.innerHTML = `
+            <td>${jugador.usuario}</td>
+            <td>${jugador.puntos}</td>
+            <td>${jugador.fecha}</td>
+        `;
+        cuerpoTabla.appendChild(fila);
+    });
+
+    if (records.length === 0) {
+        cuerpoTabla.innerHTML = '<tr><td colspan="3">Aún no hay partidas guardadas</td></tr>';
+    }
+}
+
+function guardarPartida() {
+    let records = JSON.parse(localStorage.getItem('recordsJuego')) || [];
+    const nuevaPartida = {
+        usuario: jugador.nombre,
+        puntos: jugador.puntuacion,
+        fecha: new Date().toLocaleDateString()
+    };
+    records.push(nuevaPartida);
+    localStorage.setItem('recordsJuego', JSON.stringify(records));
+}
+
+
+
+
+/**
+ * Carga los datos de enemigos desde una API y crea instancias de la clase Enemigos.
+ * @returns {Promise<Enemigos[]>} Una promesa que resuelve con un array de instancias de Enemigos.
+ */
+async function cargarEnemigosDesdeAPI() {
+    const API_URL_ENEMIGOS = 'https://tudominio.com/api/enemigos'; // RUTA DE TU API
+    try {
+        const response = await fetch(API_URL_ENEMIGOS);
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const datosEnemigos = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Enemigos
+        return datosEnemigos.map(
+            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia }) =>
+                new Enemigos(nombre, avatar, nivelAtaque, puntosVida, experiencia)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar enemigos desde la API:", error);
+        // Opcional: Devolver un array vacío o datos de respaldo
+        return [];
+    }
+}
+
+/**
+ * Carga los datos de jefes desde una API y crea instancias de la clase Jefes.
+ * @returns {Promise<Jefes[]>} Una promesa que resuelve con un array de instancias de Jefes.
+ */
+async function cargarJefesDesdeAPI() {
+    const API_URL_JEFES = 'https://tudominio.com/api/jefes'; 
+    try {
+        const response = await fetch(API_URL_JEFES);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const datosJefes = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Jefes
+        return datosJefes.map(
+            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio }) =>
+                new Jefes(nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar jefes desde la API:", error);
+        return [];
+    }
+}
+
+
+/**
+ * Carga los datos de productos desde una API y crea instancias de la clase Producto.
+ * @returns {Promise<Producto[]>} Una promesa que resuelve con un array de instancias de Producto.
+ */
+async function cargarProductosDesdeAPI() {
+    const API_URL_PRODUCTOS = 'https://tudominio.com/api/productos'; 
+    try {
+        const response = await fetch(API_URL_PRODUCTOS);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        const datosProductos = await response.json();
+
+        // Mapear los datos JSON a instancias de la clase Producto
+        return datosProductos.map(
+            ({ nombre, imagen, precio, rareza, tipo, bonus }) =>
+                new Producto(nombre, imagen, precio, rareza, tipo, bonus)
+        );
+
+    } catch (error) {
+        console.error("Error al cargar productos desde la API:", error);
+        return [];
+    }
+}
+
+
+// // NUEVAS VARIABLES GLOBALES (Se inicializarán en inicializarEstado)
+// /** @type {Producto[]} */
+// let productos = []; // Ahora se carga por API
+// /** @type {Enemigos[]} */
+// let enemigosTotal = []; // Ahora se carga por API
+// /** @type {Jefes[]} */
+// let jefesTotal = [];    // Ahora se carga por API
+// /** @type {Object[]} */
+// let personajesBase = [];
+/**
+ * Carga los datos de personajes seleccionables desde una API.
+ * @returns {Promise<Object[]>} Una promesa que resuelve con el array de objetos de personaje.
+ */
+async function cargarPersonajesDesdeAPI() {
+    const API_URL_PERSONAJES = 'https://tudominio.com/api/personajes';
+    try {
+        const response = await fetch(API_URL_PERSONAJES);
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        // Devuelve el array de objetos tal cual (son las 'personajesBase')
+        return await response.json(); 
+    } catch (error) {
+        console.error("Error al cargar personajes desde la API:", error);
+        return [];
+    }
+}
+
+
+
+
+
+// /**
+//  * Reinicia el estado del juego y carga todos los datos iniciales de la API.
+//  */
+// async function inicializarEstado() { // <--- AHORA ES ASÍNCRONA
+//     // 1. Cargar todos los datos de la API simultáneamente
+//     const [nuevosEnemigos, nuevosJefes, nuevosProductos, nuevosPersonajesBase] = await Promise.all([
+//         cargarEnemigosDesdeAPI(),
+//         cargarJefesDesdeAPI(),
+//         cargarProductosDesdeAPI(),
+//         cargarPersonajesDesdeAPI()
+//     ]);
+
+//     // 2. Asignar los resultados a las variables globales
+//     enemigosTotal = nuevosEnemigos;
+//     jefesTotal = nuevosJefes;
+//     productos = nuevosProductos;
+//     personajesBase = nuevosPersonajesBase;
+    
+//     // 3. Continuar con la lógica del juego una vez que los datos están cargados
+//     jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
+//     pintarSelectorPersonaje();
+    
+//     const btnScene0 = document.getElementById('btn-scene-0');
+//     if (btnScene0) {
+//         btnScene0.textContent = 'Comenzar Aventura';
+//         btnScene0.disabled = true;
+//     }
+//     inventario = [];
+//     rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
+//     pintarMercado(); // Llama a pintarMercado con los nuevos 'productos'
+//     cargarOpcionesFiltro();
+//     saldoActual = MONEDAS_INICIALES;
+//     costoTotalCarrito = 0;
+//     actualizarUIMercado();
+    
+//     // Crear la ronda con los enemigos y jefes cargados
+//     rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 4, 2); 
+    
+//     // ... resto del código de inicialización
+// }
+
+// // Llamar a la función al inicio del script:
+// inicializarEstado();
