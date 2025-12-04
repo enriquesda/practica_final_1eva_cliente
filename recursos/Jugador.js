@@ -30,13 +30,14 @@ export class Jugador {
      * @param {number} ataqueBase - El ataque base del personaje al empezar.
      * @param {number} defensaBase - La defensa base del personaje al empezar.
      */
-    constructor(nombre, avatar, puntos = 0, vidaBase, ataqueBase, defensaBase) {
+    constructor(nombre, avatar, puntos = 0, vidaBase, ataqueBase, defensaBase,dinero=500) {
         this.nombre = nombre;
         this.avatar = avatar;
         this.puntos = puntos;
         this.vida = vidaBase; 
         this.ataque = ataqueBase;
         this.defensa = defensaBase;
+        this.dinero=dinero;
         
         this.actualizarEstadisticas();
     }

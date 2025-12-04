@@ -11,6 +11,7 @@ import { Jefes} from "../recursos/Jefes.js";
 function combate(jugador,enemigo ) {
     /** @type {string[]} */
     let logBatalla = []; 
+    let dineroGanado=5;
     
     /**
      * Añade un mensaje al historial y lo muestra por consola.
@@ -37,12 +38,13 @@ function combate(jugador,enemigo ) {
             // Si el enemigo es una instancia de Jefe, damos más experiencia
             if (enemigo instanceof Jefes) {
                 experienciaGanada *= 2;
+                dineroGanado=10;
                 registrarMensaje(`¡Es un JEFE! La experiencia se duplica.`);
             }
             registrarMensaje(`${jugador.nombre} gana ${experienciaGanada} puntos de experiencia.`);
             
             // Devuelve la experiencia y el log de victoria
-            return { experiencia: experienciaGanada, log: logBatalla };
+            return { experiencia: experienciaGanada, log: logBatalla};
         }
 
         // 2. Turno del Enemigo (solo si sigue vivo)

@@ -20,7 +20,7 @@ export default[
   {
     "nombre": "Espada de Hierro",
     "imagen": "espada_hierro.png",
-    "precio": 950,
+    "precio": 234,
     "rareza": "comun",
     "tipo": "arma",
     "bonus": 5
@@ -28,7 +28,7 @@ export default[
   {
     "nombre": "Espada legendaria",
     "imagen": "espada_epica.png",
-    "precio": 2500,
+    "precio": 123,
     "rareza": "legendaria",
     "tipo": "arma",
     "bonus": 15
@@ -36,7 +36,7 @@ export default[
   {
     "nombre": "Escudo de Roble",
     "imagen": "escudo_roble.png",
-    "precio": 800,
+    "precio": 234,
     "rareza": "comun",
     "tipo": "armadura",
     "bonus": 3
@@ -44,7 +44,7 @@ export default[
   {
     "nombre": "armadura de Dragón",
     "imagen": "armadura_dragon.png",
-    "precio": 4000,
+    "precio": 98,
     "rareza": "legendaria",
     "tipo": "armadura",
     "bonus": 25
@@ -60,7 +60,7 @@ export default[
   {
     "nombre": "Poción de Fuerza",
     "imagen": "pocion_fuerza.png",
-    "precio": 600,
+    "precio": 100,
     "rareza": "rara",
     "tipo": "consumible",
     "bonus": 20
@@ -68,7 +68,7 @@ export default[
   {
     "nombre": "Casco del Valor",
     "imagen": "casco_valor.png",
-    "precio": 1200,
+    "precio": 110,
     "rareza": "rara",
     "tipo": "armadura",
     "bonus": 8
@@ -76,7 +76,7 @@ export default[
   {
     "nombre": "Arco del Viento",
     "imagen": "arco_viento.png",
-    "precio": 1800,
+    "precio": 180,
     "rareza": "legendaria",
     "tipo": "arma",
     "bonus": 12
@@ -84,7 +84,7 @@ export default[
   {
     "nombre": "Elixir de Resistencia",
     "imagen": "elixir_resistencia.png",
-    "precio": 1000,
+    "precio": 100,
     "rareza": "rara",
     "tipo": "consumible",
     "bonus": 15
@@ -92,7 +92,7 @@ export default[
   {
     "nombre": "Gamma-55",
     "imagen": "Gamma.png",
-    "precio": 5000,
+    "precio": 50,
     "rareza": "legendaria",
     "tipo": "arma",
     "bonus": 30

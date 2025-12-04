@@ -36,7 +36,7 @@ const escenasConFooter = ['scene-2', 'scene-3', 'scene-5', 'scene-6'];
 /** @type {boolean} */
 let batallaFinalizada = false;
 /** @type {number} */
-const MONEDAS_INICIALES = 9000;
+const MONEDAS_INICIALES = 500;
 /** @type {number} */
 let saldoActual = 0;
 /** @type {number} */
@@ -824,7 +824,7 @@ if (btnScene0) {
 const btnScene1 = document.getElementById('btn-scene-1');
 if (btnScene1) {
     btnScene1.addEventListener('click', () => {
-        saldoActual = MONEDAS_INICIALES;
+        saldoActual = jugador.dinero;
         costoTotalCarrito = 0;
 
         pintarMercado();
@@ -857,7 +857,7 @@ if (btnComprar) {
             inventario.push(p);
             console.log(`Has comprado: ${p.nombre} por ${p.precio}`);
         });
-
+        jugador.dinero=saldoActual;
         carrito = [];
         costoTotalCarrito = 0;
 
@@ -871,6 +871,7 @@ if (btnComprar) {
 
         pintarResumenJugadorEscena3(jugador);
         cambiarEscena('scene-3');
+        console.log(jugador.dinero);
     });
 }
 //Botón en Escena 3
