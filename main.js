@@ -42,6 +42,76 @@ let saldoActual = 0;
 /** @type {number} */
 let costoTotalCarrito = 0;
 
+// =========================================================================
+// NUEVAS VARIABLES PARA LA VALIDACIÓN DEL NOMBRE (ESCENA 0)
+// =========================================================================
+/** @type {HTMLElement} */
+const inputNombre = document.getElementById('input-nombre');
+/** @type {HTMLElement} */
+const nombreError = document.getElementById('nombre-error');
+/** @type {RegExp} */
+const REGEX_NOMBRE = /^[A-Z].{3,}$/; // Empieza con mayúscula, y tiene al menos 4 caracteres en total.
+const NOMBRE_MIN_LENGTH = 4;
+
+/**
+ * Valida el nombre del jugador usando la expresión regular:
+ * 1. Debe empezar con una letra mayúscula.
+ * 2. Debe tener una longitud total de al menos 4 caracteres.
+ * @param {string} nombre - El nombre a validar.
+ * @returns {boolean} True si el nombre es válido, False en caso contrario.
+ */
+function validarNombre(nombre) {
+    const nombreLimpio = nombre ? nombre.trim() : '';
+
+    if (nombreLimpio.length === 0) {
+        if (nombreError) nombreError.textContent = '';
+        return false;
+    }
+
+    if (REGEX_NOMBRE.test(nombreLimpio)) {
+        if (nombreError) nombreError.textContent = '';
+        return true;
+    } else {
+        if (nombreError) {
+            nombreError.textContent = `Debe empezar con Mayúscula y tener al menos ${NOMBRE_MIN_LENGTH} caracteres.`;
+        }
+        return false;
+    }
+}
+
+/**
+ * Actualiza el estado del botón de inicio (btn-scene-0) basado en la selección
+ * de personaje y la validación del nombre.
+ */
+function actualizarBotonScene0() {
+    const btnScene0 = document.getElementById('btn-scene-0');
+    if (!btnScene0) return;
+
+    const nombreValido = validarNombre(inputNombre ? inputNombre.value : '');
+
+    if (personajeSeleccionado && nombreValido) {
+        btnScene0.disabled = false;
+        btnScene0.textContent = 'Comenzar Aventura';
+    } else {
+        btnScene0.disabled = true;
+        if (!personajeSeleccionado) {
+            btnScene0.textContent = 'Selecciona un Héroe';
+        } else if (!nombreValido) {
+            btnScene0.textContent = 'Introduce Nombre Válido';
+        } else {
+            btnScene0.textContent = 'Comenzar Aventura';
+        }
+    }
+}
+
+// Listener para el campo de nombre
+if (inputNombre) {
+    inputNombre.addEventListener('input', actualizarBotonScene0);
+}
+// =========================================================================
+// FIN DE VARIABLES Y FUNCIONES DE VALIDACIÓN
+// =========================================================================
+
 
 ////////////////////////////////////////////////////////////////////////////
 //Cargamos a los enemigos y jefes , creamos una funcion para solo obtener alguno de ellos
@@ -142,7 +212,8 @@ function pintarSelectorPersonaje() {
 
             personajeSeleccionado = p;
             actualizarPreview(p.stats);
-            document.getElementById('btn-scene-0').disabled = false;
+            // Llama a la nueva función para actualizar el botón
+            actualizarBotonScene0();
         });
     });
 
@@ -332,7 +403,7 @@ function cargarOpcionesFiltro() {
     }
 }
 /** @type {HTMLElement} */
-const inputNombre = document.getElementById('filtro-nombre');
+const inputNombreFiltro = document.getElementById('filtro-nombre');
 /** @type {HTMLElement} */
 const selectTipo = document.getElementById('filtro-tipo');
 /** @type {HTMLElement} */
@@ -344,7 +415,7 @@ const btnLimpiar = document.getElementById('btn-limpiar-filtros');
  * Aplica los filtros de nombre, tipo y rareza y repinta el mercado.
  */
 function aplicarFiltrosMercado() {
-    const nombre = inputNombre ? inputNombre.value.toLowerCase() : '';
+    const nombre = inputNombreFiltro ? inputNombreFiltro.value.toLowerCase() : '';
     const tipo = selectTipo ? selectTipo.value : '';
     const rareza = selectRareza ? selectRareza.value : '';
     let productosFiltrados = productos;
@@ -364,8 +435,8 @@ function aplicarFiltrosMercado() {
 
     pintarMercado(productosFiltrados);
 }
-if (inputNombre) {
-    inputNombre.addEventListener('input', aplicarFiltrosMercado);
+if (inputNombreFiltro) {
+    inputNombreFiltro.addEventListener('input', aplicarFiltrosMercado);
 }
 if (selectTipo) {
     selectTipo.addEventListener('change', aplicarFiltrosMercado);
@@ -375,7 +446,7 @@ if (selectRareza) {
 }
 if (btnLimpiar) {
     btnLimpiar.addEventListener('click', () => {
-        if (inputNombre) inputNombre.value = '';
+        if (inputNombreFiltro) inputNombreFiltro.value = '';
         if (selectTipo) selectTipo.value = '';
         if (selectRareza) selectRareza.value = '';
         aplicarFiltrosMercado();
@@ -642,11 +713,16 @@ const turnoCombate = () => {
 function inicializarEstado() {
     jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
     pintarSelectorPersonaje();
-    const btnScene0 = document.getElementById('btn-scene-0');
-    if (btnScene0) {
-        btnScene0.textContent = 'Comenzar Aventura';
-        btnScene0.disabled = true;
-    }
+    
+    // Limpiar el campo de nombre y el mensaje de error al reiniciar
+    const inputNombre = document.getElementById('input-nombre');
+    const nombreError = document.getElementById('nombre-error');
+    if (inputNombre) inputNombre.value = '';
+    if (nombreError) nombreError.textContent = '';
+    
+    // Usar la función de actualización de botón para restablecer el estado
+    actualizarBotonScene0();
+
     inventario = [];
     rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
     pintarMercado();
@@ -712,14 +788,26 @@ if (btnScene0) {
         if (!personajeSeleccionado) return;
 
         const nombreInput = document.getElementById('input-nombre');
-        let nombreJugador;
         const nombreTemporal = nombreInput.value.trim();
+        let nombreJugador;
+
+        // DOBLE CHECK: La validación final
+        if (!validarNombre(nombreTemporal)) {
+            // Esto solo debería ocurrir si el botón fue habilitado manualmente o hay un bug
+            alert("Error: El nombre no es válido. Debe empezar con mayúscula y tener al menos 4 caracteres.");
+            // Si el nombre no es válido, detenemos el flujo y forzamos el botón a deshabilitarse
+            actualizarBotonScene0();
+            return;
+        }
 
         if (nombreTemporal) {
             nombreJugador = nombreTemporal;
         } else {
+            // Si el campo está vacío pero la validación pasó (lo cual no debería ocurrir con la RegEx),
+            // usar el nombre por defecto.
             nombreJugador = 'Héroe Anónimo';
         }
+        
         jugador = new Jugador(
             nombreJugador,
             personajeSeleccionado.avatar,
@@ -992,15 +1080,6 @@ async function cargarProductosDesdeAPI() {
 }
 
 
-// // NUEVAS VARIABLES GLOBALES (Se inicializarán en inicializarEstado)
-// /** @type {Producto[]} */
-// let productos = []; // Ahora se carga por API
-// /** @type {Enemigos[]} */
-// let enemigosTotal = []; // Ahora se carga por API
-// /** @type {Jefes[]} */
-// let jefesTotal = [];    // Ahora se carga por API
-// /** @type {Object[]} */
-// let personajesBase = [];
 /**
  * Carga los datos de personajes seleccionables desde una API.
  * @returns {Promise<Object[]>} Una promesa que resuelve con el array de objetos de personaje.
@@ -1019,9 +1098,15 @@ async function cargarPersonajesDesdeAPI() {
         return [];
     }
 }
-
-
-
+// // NUEVAS VARIABLES GLOBALES (Se inicializarán en inicializarEstado)
+// /** @type {Producto[]} */
+// let productos = []; // Ahora se carga por API
+// /** @type {Enemigos[]} */
+// let enemigosTotal = []; // Ahora se carga por API
+// /** @type {Jefes[]} */
+// let jefesTotal = [];    // Ahora se carga por API
+// /** @type {Object[]} */
+// let personajesBase = [];
 
 
 // /**
