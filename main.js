@@ -47,10 +47,15 @@ let costoTotalCarrito = 0;
 // =========================================================================
 /** @type {HTMLElement} */
 const inputNombre = document.getElementById('input-nombre');
+const inputDefensa=document.getElementById('input-defensa');
+const inputAtaque = document.getElementById('input-ataque');
+const inputVida=document.getElementById('input-vida');
 /** @type {HTMLElement} */
 const nombreError = document.getElementById('nombre-error');
+const ataqueError = document.getElementById('ataque-error');
+const defensaError = document.getElementById('defensa-error');
 /** @type {RegExp} */
-const REGEX_NOMBRE = /^[A-Z].{3,}$/; // Empieza con mayúscula, y tiene al menos 4 caracteres en total.
+const REGEX_NOMBRE = /^[A-Z]\w{1,19}/; // Empieza con mayúscula,.
 const NOMBRE_MIN_LENGTH = 4;
 
 /**
@@ -79,6 +84,27 @@ function validarNombre(nombre) {
     }
 }
 
+function validarAtributos(v,d,a){
+    if(v<100){
+        console.log(" vida menor que 100");
+        return false;
+    }
+    console.log(v+" "+d+" "+a);
+    
+    if(v>=100 && d>=0 && a>=0){
+        console.log((v+d+a));
+        if((v+d+a)>110){
+            console.log(" suman mas de 110");
+            return false;
+        }else{
+            console.log("Bien");
+            return true;
+        }
+    }else{
+        console.log(" suman menos de 110");
+        return false;
+    }
+}
 /**
  * Actualiza el estado del botón de inicio (btn-scene-0) basado en la selección
  * de personaje y la validación del nombre.
@@ -86,10 +112,13 @@ function validarNombre(nombre) {
 function actualizarBotonScene0() {
     const btnScene0 = document.getElementById('btn-scene-0');
     if (!btnScene0) return;
+    console.log("entramos")
+    console.log("Ataque : "+inputAtaque.value+ " Defensa : "+inputDefensa.value+" Vida: "+inputVida.value);
 
     const nombreValido = validarNombre(inputNombre ? inputNombre.value : '');
-
-    if (personajeSeleccionado && nombreValido) {
+    const atributosValido= validarAtributos(parseInt(inputVida.value),parseInt(inputDefensa.value),parseInt(inputAtaque.value))
+    console.log(atributosValido);
+    if (personajeSeleccionado && nombreValido && atributosValido) {
         btnScene0.disabled = false;
         btnScene0.textContent = 'Comenzar Aventura';
     } else {
@@ -107,6 +136,15 @@ function actualizarBotonScene0() {
 // Listener para el campo de nombre
 if (inputNombre) {
     inputNombre.addEventListener('input', actualizarBotonScene0);
+}
+if (inputDefensa) {
+    inputDefensa.addEventListener('input', actualizarBotonScene0);
+}
+if (inputAtaque) {
+    inputAtaque.addEventListener('input', actualizarBotonScene0);
+}
+if (inputVida) {
+    inputVida.addEventListener('input', actualizarBotonScene0);
 }
 // =========================================================================
 // FIN DE VARIABLES Y FUNCIONES DE VALIDACIÓN
@@ -666,6 +704,8 @@ const turnoCombate = () => {
         enemigoComb.style.animation = 'slideInRight 1s ease-out 0.2s forwards';
     }, 10);
     const resultado = combate(jugador, enemigoTurno);
+    jugador.dinero+=resultado.dineroGanado;
+    console.log("Dinero del jugador :"+jugador.dinero)
     jugadorComb.src = jugador.avatar;
     enemigoComb.src = "imagenes/" + enemigoTurno.avatar;
 
@@ -716,9 +756,14 @@ function inicializarEstado() {
     
     // Limpiar el campo de nombre y el mensaje de error al reiniciar
     const inputNombre = document.getElementById('input-nombre');
+    const inputAtaque=document.getElementById('input-ataque');
     const nombreError = document.getElementById('nombre-error');
+    const ataqueError = document.getElementById('ataque-error');
+
     if (inputNombre) inputNombre.value = '';
     if (nombreError) nombreError.textContent = '';
+    if (inputAtaque) inputAtaque.value = '0';
+    if (ataqueError) ataqueError.textContent = '';
     
     // Usar la función de actualización de botón para restablecer el estado
     actualizarBotonScene0();
@@ -788,6 +833,9 @@ if (btnScene0) {
         if (!personajeSeleccionado) return;
 
         const nombreInput = document.getElementById('input-nombre');
+        const ataqueJ=parseInt(document.getElementById('input-ataque').value);
+        const defensaJ=parseInt(document.getElementById('input-defensa').value);
+        const vidaJ=parseInt(document.getElementById('input-vida').value);
         const nombreTemporal = nombreInput.value.trim();
         let nombreJugador;
 
@@ -812,9 +860,9 @@ if (btnScene0) {
             nombreJugador,
             personajeSeleccionado.avatar,
             0,
-            personajeSeleccionado.stats.vida,
-            personajeSeleccionado.stats.ataque,
-            personajeSeleccionado.stats.defensa
+            vidaJ,
+            ataqueJ,
+            defensaJ
         );
         pintarResumenJugador(jugador);
         cambiarEscena('scene-1');
@@ -892,7 +940,7 @@ if (btnScene4) {
     });
 }
 
-//Botón en Escena 5 combates
+//Botón en Escena 5 combatesguardarPartida
 //acion de los combates
 const btnScene5 = document.getElementById('btn-scene-5');
 if (btnScene5) {
@@ -905,8 +953,10 @@ if (btnScene5) {
             }
             const puntoTotalElement = document.getElementById("puntoTotal");
             if (puntoTotalElement) {
-                puntoTotalElement.textContent = "Puntos totales ganados: " + jugador.puntuacion;
+                let puntuacionTotal=jugador.dinero+jugador.puntuacion;
+                puntoTotalElement.textContent = "Puntos totales ganados: " + puntuacionTotal+" (dinero: "+jugador.dinero+" ,experiencia: "+jugador.puntuacion+" )";
             }
+
             guardarPartida();
             cargarRanking();
             cambiarEscena('scene-6');
@@ -936,6 +986,24 @@ if (btnScene6) {
     btnScene6.addEventListener('click', () => {
         inicializarEstado();
         cambiarEscena('scene-0');
+    });
+}
+
+const imprimirResultados = document.getElementById("imprimirResultados");
+if (imprimirResultados) {
+    imprimirResultados.addEventListener('click', () => {
+    let records = JSON.parse(localStorage.getItem('recordsJuego')) || [];
+
+    records.sort((a, b) => b.puntos - a.puntos);
+
+    records.forEach(jugador => {
+        console.log("El jugador :"+jugador.usuario+" puntuacion : "+jugador.puntos+" ,Dinero: "+jugador.dinero+" fecha: "+jugador.fecha)
+
+    });
+
+    if (records.length === 0) {
+        console.log("No hay partidas guardadas")
+    }
     });
 }
 
@@ -977,6 +1045,7 @@ function cargarRanking() {
         fila.innerHTML = `
             <td>${jugador.usuario}</td>
             <td>${jugador.puntos}</td>
+            <td>${jugador.dinero}</td>
             <td>${jugador.fecha}</td>
         `;
         cuerpoTabla.appendChild(fila);
@@ -992,164 +1061,9 @@ function guardarPartida() {
     const nuevaPartida = {
         usuario: jugador.nombre,
         puntos: jugador.puntuacion,
+        dinero: jugador.dinero,
         fecha: new Date().toLocaleDateString()
     };
     records.push(nuevaPartida);
     localStorage.setItem('recordsJuego', JSON.stringify(records));
 }
-
-
-
-
-/**
- * Carga los datos de enemigos desde una API y crea instancias de la clase Enemigos.
- * @returns {Promise<Enemigos[]>} Una promesa que resuelve con un array de instancias de Enemigos.
- */
-async function cargarEnemigosDesdeAPI() {
-    const API_URL_ENEMIGOS = 'https://tudominio.com/api/enemigos'; // RUTA DE TU API
-    try {
-        const response = await fetch(API_URL_ENEMIGOS);
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-        const datosEnemigos = await response.json();
-
-        // Mapear los datos JSON a instancias de la clase Enemigos
-        return datosEnemigos.map(
-            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia }) =>
-                new Enemigos(nombre, avatar, nivelAtaque, puntosVida, experiencia)
-        );
-
-    } catch (error) {
-        console.error("Error al cargar enemigos desde la API:", error);
-        // Opcional: Devolver un array vacío o datos de respaldo
-        return [];
-    }
-}
-
-/**
- * Carga los datos de jefes desde una API y crea instancias de la clase Jefes.
- * @returns {Promise<Jefes[]>} Una promesa que resuelve con un array de instancias de Jefes.
- */
-async function cargarJefesDesdeAPI() {
-    const API_URL_JEFES = 'https://tudominio.com/api/jefes'; 
-    try {
-        const response = await fetch(API_URL_JEFES);
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        const datosJefes = await response.json();
-
-        // Mapear los datos JSON a instancias de la clase Jefes
-        return datosJefes.map(
-            ({ nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio }) =>
-                new Jefes(nombre, avatar, nivelAtaque, puntosVida, experiencia, multiplicadorDanio)
-        );
-
-    } catch (error) {
-        console.error("Error al cargar jefes desde la API:", error);
-        return [];
-    }
-}
-
-
-/**
- * Carga los datos de productos desde una API y crea instancias de la clase Producto.
- * @returns {Promise<Producto[]>} Una promesa que resuelve con un array de instancias de Producto.
- */
-async function cargarProductosDesdeAPI() {
-    const API_URL_PRODUCTOS = 'https://tudominio.com/api/productos'; 
-    try {
-        const response = await fetch(API_URL_PRODUCTOS);
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        const datosProductos = await response.json();
-
-        // Mapear los datos JSON a instancias de la clase Producto
-        return datosProductos.map(
-            ({ nombre, imagen, precio, rareza, tipo, bonus }) =>
-                new Producto(nombre, imagen, precio, rareza, tipo, bonus)
-        );
-
-    } catch (error) {
-        console.error("Error al cargar productos desde la API:", error);
-        return [];
-    }
-}
-
-
-/**
- * Carga los datos de personajes seleccionables desde una API.
- * @returns {Promise<Object[]>} Una promesa que resuelve con el array de objetos de personaje.
- */
-async function cargarPersonajesDesdeAPI() {
-    const API_URL_PERSONAJES = 'https://tudominio.com/api/personajes';
-    try {
-        const response = await fetch(API_URL_PERSONAJES);
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-        // Devuelve el array de objetos tal cual (son las 'personajesBase')
-        return await response.json(); 
-    } catch (error) {
-        console.error("Error al cargar personajes desde la API:", error);
-        return [];
-    }
-}
-// // NUEVAS VARIABLES GLOBALES (Se inicializarán en inicializarEstado)
-// /** @type {Producto[]} */
-// let productos = []; // Ahora se carga por API
-// /** @type {Enemigos[]} */
-// let enemigosTotal = []; // Ahora se carga por API
-// /** @type {Jefes[]} */
-// let jefesTotal = [];    // Ahora se carga por API
-// /** @type {Object[]} */
-// let personajesBase = [];
-
-
-// /**
-//  * Reinicia el estado del juego y carga todos los datos iniciales de la API.
-//  */
-// async function inicializarEstado() { // <--- AHORA ES ASÍNCRONA
-//     // 1. Cargar todos los datos de la API simultáneamente
-//     const [nuevosEnemigos, nuevosJefes, nuevosProductos, nuevosPersonajesBase] = await Promise.all([
-//         cargarEnemigosDesdeAPI(),
-//         cargarJefesDesdeAPI(),
-//         cargarProductosDesdeAPI(),
-//         cargarPersonajesDesdeAPI()
-//     ]);
-
-//     // 2. Asignar los resultados a las variables globales
-//     enemigosTotal = nuevosEnemigos;
-//     jefesTotal = nuevosJefes;
-//     productos = nuevosProductos;
-//     personajesBase = nuevosPersonajesBase;
-    
-//     // 3. Continuar con la lógica del juego una vez que los datos están cargados
-//     jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
-//     pintarSelectorPersonaje();
-    
-//     const btnScene0 = document.getElementById('btn-scene-0');
-//     if (btnScene0) {
-//         btnScene0.textContent = 'Comenzar Aventura';
-//         btnScene0.disabled = true;
-//     }
-//     inventario = [];
-//     rarezaOferta = rarezasPosibles[Math.floor(Math.random() * rarezasPosibles.length)];
-//     pintarMercado(); // Llama a pintarMercado con los nuevos 'productos'
-//     cargarOpcionesFiltro();
-//     saldoActual = MONEDAS_INICIALES;
-//     costoTotalCarrito = 0;
-//     actualizarUIMercado();
-    
-//     // Crear la ronda con los enemigos y jefes cargados
-//     rondaEnemigos = crearEquipoBatalla(enemigosTotal, jefesTotal, 4, 2); 
-    
-//     // ... resto del código de inicialización
-// }
-
-// // Llamar a la función al inicio del script:
-// inicializarEstado();

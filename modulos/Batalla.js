@@ -44,7 +44,7 @@ function combate(jugador,enemigo ) {
             registrarMensaje(`${jugador.nombre} gana ${experienciaGanada} puntos de experiencia.`);
             
             // Devuelve la experiencia y el log de victoria
-            return { experiencia: experienciaGanada, log: logBatalla};
+            return { experiencia: experienciaGanada, log: logBatalla,dineroGanado:dineroGanado};
         }
 
         // 2. Turno del Enemigo (solo si sigue vivo)
@@ -55,11 +55,11 @@ function combate(jugador,enemigo ) {
             registrarMensaje(`${enemigo.nombre} ha derrotado a ${jugador.nombre}. Fin del juego.`);
             
             // Devuelve 0 experiencia y el log de derrota
-            return { experiencia: 0, log: logBatalla };
+            return { experiencia: 0, log: logBatalla,dineroGanado:dineroGanado};
         }
     }
     
     // Por si el bucle termina por una condición inicial (no debería pasar)
-    return { experiencia: 0, log: logBatalla };
+    return { experiencia: 0, log: logBatalla ,dineroGanado:0};
 }
 export { combate };
