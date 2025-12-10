@@ -10,7 +10,7 @@
  * @typedef {Object} DatosPersonaje
  * @property {string} id - Identificador único del personaje (ej: 'p1').
  * @property {string} nombreClase - Nombre visible del personaje (ej: 'exploradora').
- * @property {string} avatar - Ruta a la imagen del personaje (ej: '/imagenes/exploradora.png').
+ * @property {string} avatar - Ruta a la imagen del personaje (ej: 'imagenes/exploradora.png').
  * @property {Object} stats - Contiene las estadísticas base del personaje.
  * @property {number} stats.vida - Puntos de vida iniciales.
  * @property {number} stats.ataque - Nivel de ataque inicial.
@@ -21,7 +21,7 @@ export const personajesBase = [
     {
         "id": "p1",
         "nombreClase": "exploradora",
-        "avatar": "/imagenes/exploradora.png",
+        "avatar": "imagenes/exploradora.png",
         "stats": {
             "vida": 120,
             "ataque": 12,
@@ -31,7 +31,7 @@ export const personajesBase = [
     {
         "id": "p2",
         "nombreClase": "cientifico",
-        "avatar": "/imagenes/cientifico.png",
+        "avatar": "imagenes/cientifico.png",
         "stats": {
             "vida": 90,
             "ataque": 25,
@@ -41,7 +41,7 @@ export const personajesBase = [
     {
         "id": "p3",
         "nombreClase": "robot",
-        "avatar": "/imagenes/robot.png",
+        "avatar": "imagenes/robot.png",
         "stats": {
             "vida": 100,
             "ataque": 15,
