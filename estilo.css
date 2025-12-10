@@ -1034,7 +1034,7 @@ ESTILO ESCENA 6
 
 /*
 ===================================================
-MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
+MEDIA QUERIES
 ===================================================
 */
 
@@ -1329,286 +1329,286 @@ MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
 
 @media (min-width: 340px) and (max-width: 860px) {
 
-  /*escena 0*/
-  #scene-0 {
-    margin: 8px;
-    gap: 10px;
-  }
+    /*escena 0*/
+    #scene-0 {
+        margin: 8px;
+        gap: 10px;
+    }
 
-  #scene-0 h2 {
-    font-size: clamp(1.2rem, 4vw, 1.6rem);
-    width: 100%;
-  }
+    #scene-0 h2 {
+        font-size: clamp(1.2rem, 4vw, 1.6rem);
+        width: 100%;
+    }
 
-  #select-personaje {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-  }
+    #select-personaje {
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
 
-  .tarjeta-personaje {
-    width: 48%;
-    min-height: auto;
-    padding: 8px;
-  }
+    .tarjeta-personaje {
+        width: 48%;
+        min-height: auto;
+        padding: 8px;
+    }
 
-  .tarjeta-personaje h3 {
-    font-size: clamp(1.4rem, 5vw, 2rem);
-  }
+    .tarjeta-personaje h3 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+    }
 
-  .tarjeta-personaje img {
-    max-height: 150px;
-    width: auto;
-    object-fit: contain;
-  }
+    .tarjeta-personaje img {
+        max-height: 150px;
+        width: auto;
+        object-fit: contain;
+    }
 
-  #stats-preview {
-    width: 100%;
-    font-size: 1rem;
-  }
+    #stats-preview {
+        width: 100%;
+        font-size: 1rem;
+    }
 
-  /*escena 1 */
-  #scene-1 {
-    margin: 8px;
-    gap: 10px;
-  }
+    /*escena 1 */
+    #scene-1 {
+        margin: 8px;
+        gap: 10px;
+    }
 
-  #escena-1-jugador {
-    flex-direction: column;
-    height: auto;
-    gap: 8px;
-  }
+    #escena-1-jugador {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
+    }
 
-  #escena-1-jugador h2 {
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
-    text-align: center;
-  }
+    #escena-1-jugador h2 {
+        font-size: clamp(1.8rem, 6vw, 2.4rem);
+        text-align: center;
+    }
 
-  #escena-1-jugador img {
-    width: 45%;
-    max-width: 180px;
-  }
+    #escena-1-jugador img {
+        width: 45%;
+        max-width: 180px;
+    }
 
-  #escena-1-stats {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    height: auto;
-  }
+    #escena-1-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        height: auto;
+    }
 
-  #escena-1-stats div p {
-    font-size: clamp(0.9rem, 3vw, 1.1rem);
-  }
+    #escena-1-stats div p {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
 
-  /*escena 2 */
-  #scene-2-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
+    /*escena 2 */
+    #scene-2-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
 
-  #scene-2 h2 {
-    max-width: 100%;
-    width: 100%;
-    text-align: center;
-    font-size: clamp(1.1rem, 3vw, 1.5rem);
-  }
+    #scene-2 h2 {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
+    }
 
-  #mercado-buscador {
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-    gap: 6px;
-  }
+    #mercado-buscador {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+    }
 
-  #mercado-buscador input[type="text"],
-  #mercado-buscador select,
-  #btn-limpiar-filtros {
-    width: 100%;
-    font-size: 1rem;
-  }
+    #mercado-buscador input[type="text"],
+    #mercado-buscador select,
+    #btn-limpiar-filtros {
+        width: 100%;
+        font-size: 1rem;
+    }
 
-  #mercado {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px;
-    padding: 8px;
-  }
+    #mercado {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+        padding: 8px;
+    }
 
-  .producto-mercado {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 280px;
-  }
+    .producto-mercado {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 280px;
+    }
 
-  .producto-mercado img {
-    max-height: 120px;
-    object-fit: contain;
-  }
+    .producto-mercado img {
+        max-height: 120px;
+        object-fit: contain;
+    }
 
-  .producto-mercado h2 {
-    font-size: clamp(1rem, 2.5vw, 1.3rem) !important;
-  }
+    .producto-mercado h2 {
+        font-size: clamp(1rem, 2.5vw, 1.3rem) !important;
+    }
 
-  .producto-stats {
-    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-    line-height: 1.2;
-  }
+    .producto-stats {
+        font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+        line-height: 1.2;
+    }
 
-  #compra-footer {
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
-  }
+    #compra-footer {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
 
-  #saldo-info {
-    width: 100%;
-    text-align: center;
-    font-size: 1rem;
-  }
+    #saldo-info {
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+    }
 
-  #btn-scene-2 {
-    width: 100%;
-  }
+    #btn-scene-2 {
+        width: 100%;
+    }
 
-  /*esscena 3*/
-  #scene-3 {
-    margin: 8px;
-    gap: 10px;
-  }
+    /*esscena 3*/
+    #scene-3 {
+        margin: 8px;
+        gap: 10px;
+    }
 
-  #escena-3-jugador {
-    flex-direction: column;
-    height: auto;
-    gap: 8px;
-  }
+    #escena-3-jugador {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
+    }
 
-  #escena-3-jugador img {
-    width: 45%;
-    max-width: 180px;
-  }
+    #escena-3-jugador img {
+        width: 45%;
+        max-width: 180px;
+    }
 
-  #escena-3-jugador h2 {
-    font-size: clamp(1.8rem, 6vw, 2.4rem);
-    text-align: center;
-  }
+    #escena-3-jugador h2 {
+        font-size: clamp(1.8rem, 6vw, 2.4rem);
+        text-align: center;
+    }
 
-  #escena-3-stats {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
+    #escena-3-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
 
-  #escena-3-stats div p {
-    font-size: clamp(0.9rem, 3vw, 1.1rem);
-  }
+    #escena-3-stats div p {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
 
-  /*escnea 4*/
-  #scene-4 > h2 {
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    text-align: center;
-    padding: 8px;
-    width: 100%;
-  }
+    /*escnea 4*/
+    #scene-4>h2 {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        text-align: center;
+        padding: 8px;
+        width: 100%;
+    }
 
-  #enemigos {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 10px;
-    padding: 8px;
-  }
+    #enemigos {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+        padding: 8px;
+    }
 
-  .tarjeta-enemigo {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 260px;
-    max-width: 100%;
-    padding: 8px;
-  }
+    .tarjeta-enemigo {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 260px;
+        max-width: 100%;
+        padding: 8px;
+    }
 
-  .tarjeta-enemigo img {
-    max-height: 120px;
-    object-fit: contain;
-  }
+    .tarjeta-enemigo img {
+        max-height: 120px;
+        object-fit: contain;
+    }
 
-  .tarjeta-enemigo h2 {
-    font-size: clamp(1rem, 3vw, 1.4rem) !important;
-    padding: 6px;
-  }
+    .tarjeta-enemigo h2 {
+        font-size: clamp(1rem, 3vw, 1.4rem) !important;
+        padding: 6px;
+    }
 
-  .tarjeta-enemigo p {
-    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-    line-height: 1.2;
-    margin: 6px 0;
-  }
+    .tarjeta-enemigo p {
+        font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+        line-height: 1.2;
+        margin: 6px 0;
+    }
 
-  #scene-4 > div:last-child {
-    flex-direction: column;
-    align-items: center;
-  }
+    #scene-4>div:last-child {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  #btn-scene-4 {
-    width: 100%;
-    font-size: 1.2rem;
-  }
+    #btn-scene-4 {
+        width: 100%;
+        font-size: 1.2rem;
+    }
 
-  /*escena 5*/
-  #scene-5 {
-    margin: 8px;
-    gap: 10px;
-  }
+    /*escena 5*/
+    #scene-5 {
+        margin: 8px;
+        gap: 10px;
+    }
 
-  #scene-5 h2 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-  }
+    #scene-5 h2 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
 
-  #combate {
-    flex-direction: column;
-    gap: 8px;
-  }
+    #combate {
+        flex-direction: column;
+        gap: 8px;
+    }
 
-  #turnoComb {
-    flex-direction: row;
-    height: 30% !important;
-    min-height: 150px;
-    gap: 5px;
-  }
+    #turnoComb {
+        flex-direction: row;
+        height: 30% !important;
+        min-height: 150px;
+        gap: 5px;
+    }
 
-  #jugadorComb,
-  #enemigoComb {
-    max-width: 40%;
-    max-height: 140px;
-    object-fit: contain;
-  }
+    #jugadorComb,
+    #enemigoComb {
+        max-width: 40%;
+        max-height: 140px;
+        object-fit: contain;
+    }
 
-  #turnoComb h2 {
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-  }
+    #turnoComb h2 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
 
-  #combate-footer {
-    flex-direction: column;
-    gap: 8px;
-  }
+    #combate-footer {
+        flex-direction: column;
+        gap: 8px;
+    }
 
-  #resumenComb {
-    font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-    max-height: 200px;
-    overflow-y: auto;
-  }
+    #resumenComb {
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        max-height: 200px;
+        overflow-y: auto;
+    }
 
-  /* escena 6*/
-  #scene-6 h2 {
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    width: 95%;
-    padding: 10px;
-  }
+    /* escena 6*/
+    #scene-6 h2 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        width: 95%;
+        padding: 10px;
+    }
 
-  #scene-6 p {
-    font-size: clamp(1rem, 3vw, 1.4rem);
-    padding: 10px;
-  }
+    #scene-6 p {
+        font-size: clamp(1rem, 3vw, 1.4rem);
+        padding: 10px;
+    }
 
-  .btn-base {
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
-    padding: 10px 25px;
-  }
+    .btn-base {
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        padding: 10px 25px;
+    }
 }
 
 
@@ -1619,7 +1619,7 @@ MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
     .tarjeta-personaje h3 {
         font-size: clamp(2rem, 2.8vw, 2.5rem);
         text-align: center;
-        white-space: normal; 
+        white-space: normal;
         line-height: 1.1;
     }
 
@@ -1645,7 +1645,7 @@ MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
 
     .producto-stats {
         font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-    line-height: 1.2;
+        line-height: 1.2;
     }
 
     /* escena 4*/
@@ -1671,6 +1671,24 @@ MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
 
 
 
+
+
+/*
+===================================================
+
+Ejercicio 1
+
+===================================================
+*/
+
+#scene-7 {
+    margin: 16px;
+    height: 100%;
+    color: var(--accent-color);
+    flex-direction: column;
+    gap: 12px;
+}
+
 #Ranking {
     width: 100%;
     max-width: 600px;
@@ -1687,18 +1705,164 @@ MEDIA QUERIES - DISEÑO RESPONSIVE OPTIMIZADO
     overflow: hidden;
 }
 
-#tablaRanking th, #tablaRanking td {
+#tablaRanking th,
+#tablaRanking td {
     padding: 12px 15px;
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #tablaRanking th {
-    background-color: #333; 
+    background-color: var(--dark-border);
     text-transform: uppercase;
     font-size: 0.9em;
 }
 
 #tablaRanking tr:last-child td {
     border-bottom: none;
+}
+
+/* Contenedor del Botón Continuar */
+#scene-7>div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/*
+===================================================
+
+Ejercicio 2
+
+===================================================
+*/
+#monedas {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    top: 50%;
+}
+
+.moneda {
+    position: relative;
+    width: 100px;
+    margin: 0;
+    opacity: 0;
+}
+
+#mon1 {
+    left: calc(25vw - 50px);
+
+    animation: monedasCaer 5s ease;
+}
+
+#mon2 {
+    left: calc(50vw - 50px);
+    animation: monedasCaer 5s ease;
+}
+
+#mon3 {
+    left: calc(75vw - 50px);
+    animation: monedasCaer 5s ease;
+
+
+
+}
+/* lo siento no consigo hacer que funcione hacer una animacion aparte solo para repetir x veces la rotacion de las monedas 
+Asique lo hago a lo bruto =)
+*/
+@keyframes monedasCaer {
+
+    0% {
+        translate: 0 -50vw;
+        opacity: 1;
+        transform: rotateY(3.142rad);
+    }
+
+    10% {
+        transform: rotateY(0);
+    }
+
+    20% {
+        transform: rotateY(3.142rad);
+    }
+
+    30% {
+        transform: rotateY(0);
+    }
+
+    40% {
+        transform: rotateY(3.142rad);
+    }
+
+    50% {
+        transform: rotateY(0);
+    }
+
+    60% {
+        transform: rotateY(3.142rad);
+    }
+
+    70% {
+        transform: rotateY(0);
+    }
+
+    80% {
+        transform: rotateY(3.142rad);
+    }
+
+    90% {
+        transform: rotateY(0);
+    }
+
+    100% {
+        translate: 0 0vw;
+        opacity: 0;
+        transform: rotateY(3.142rad);
+    }
+}
+
+
+
+
+
+
+/*
+===================================================
+
+Ejercicio 3
+
+===================================================
+*/
+#bolsaMoneda {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-left: 2%;
+    margin-bottom: 1%;
+    animation: bolsaMover 1s ease;
+}
+
+#bolsaMoneda img {
+    width: 150px;
+}
+
+#bolsaMoneda p {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    align-items: center;
+    margin-top: 50%;
+    color: black;
+
+}
+
+@keyframes bolsaMover {
+    from {
+        transform: translateX(-300px);
+    }
 }

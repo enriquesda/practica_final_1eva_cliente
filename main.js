@@ -984,6 +984,13 @@ if (btnScene5) {
 const btnScene6 = document.getElementById('btn-scene-6');
 if (btnScene6) {
     btnScene6.addEventListener('click', () => {
+        cambiarEscena('scene-7');
+    });
+}
+
+const btnScene7 = document.getElementById('btn-scene-7');
+if (btnScene7) {
+    btnScene7.addEventListener('click', () => {
         inicializarEstado();
         cambiarEscena('scene-0');
     });
@@ -1046,7 +1053,6 @@ function cargarRanking() {
             <td>${jugador.usuario}</td>
             <td>${jugador.puntos}</td>
             <td>${jugador.dinero}</td>
-            <td>${jugador.fecha}</td>
         `;
         cuerpoTabla.appendChild(fila);
     });

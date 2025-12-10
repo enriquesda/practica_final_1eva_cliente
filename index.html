@@ -10,12 +10,17 @@
 </head>
 
 <body>
-
+    <div id="monedas">
+        <img src="/imagenes/moneda.png" class="moneda" id="mon1">
+        <img src="/imagenes/moneda.png" class="moneda" id="mon2">
+        <img src="/imagenes/moneda.png" class="moneda" id="mon3">
+    </div>
     <head>
         <h1>
             Aventuras en el reino de JS
         </h1>
     </head>
+
     <main>
         <div id="scene-0" class="scene active">
             <h2>Elige a tu Héroe</h2>
@@ -154,6 +159,14 @@
         <div id="scene-6" class="scene">
             <h2 id="finalBatalla"></h2>
             <p id="puntoTotal"></p>
+             <div>
+                <button id="imprimirResultados" class="btn-base">Imprimir Ranking</button>
+            </div>
+            <div>
+                <button id="btn-scene-6" class="btn-base">Tabla</button>
+            </div>
+        </div>
+         <div id="scene-7" class="scene">
             <div id="Ranking">
                 <table id="tablaRanking">
                     <thead>
@@ -161,18 +174,14 @@
                             <th>Usuario</th>
                             <th>Puntuación</th>
                             <th>Dinero</th>
-                            <th>Fecha</th>
                         </tr>
                     </thead>
                     <tbody id="rankingBody">
                     </tbody>
                 </table>
             </div>
-             <div>
-                <button id="imprimirResultados" class="btn-base">Imprimir Ranking</button>
-            </div>
             <div>
-                <button id="btn-scene-6" class="btn-base">reiniciar</button>
+                <button id="btn-scene-7" class="btn-base">reiniciar</button>
             </div>
         </div>
 
@@ -182,6 +191,10 @@
         <div id="inventory-container">
         </div>
     </footer>
+    <div id="bolsaMoneda">
+            <img src="/imagenes/monedero.png" alt="">
+            <p>500</p>
+        </div>
     <script type="module" src="./main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
     <script type="module" src="./main.js"></script>
