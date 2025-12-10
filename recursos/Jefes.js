@@ -1,4 +1,4 @@
-import { nivelAtaqueEnemigos, vidaEnemigos, experienciaEnemigos,multiplicadorDanioJefe } from "./constants.js";
+import { nivelAtaqueEnemigos, vidaEnemigos, experienciaEnemigos, multiplicadorDanioJefe } from "./Constants.js";
 import { Enemigos } from "./Enemigos.js";
 
 /**

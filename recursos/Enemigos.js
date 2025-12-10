@@ -1,9 +1,9 @@
-import { nivelAtaqueEnemigos,vidaEnemigos,experienciaEnemigos } from "./constants.js";
+import { nivelAtaqueEnemigos, vidaEnemigos, experienciaEnemigos } from "./Constants.js";
 /**
  * Clase para crear a los enemigos contra los que lucha el Jugador.
  * @class
  */
-export class Enemigos{
+export class Enemigos {
     /** @type {string}*/
     nombre;
     /** @type {string}*/
@@ -28,15 +28,15 @@ export class Enemigos{
         nombre,
         avatar,
         nivelAtaque = nivelAtaqueEnemigos,
-        puntosVida=vidaEnemigos,
-        experiencia=experienciaEnemigos
-    ){
-        this.nombre=nombre;
-        this.avatar=avatar;
-        this.nivelAtaque=nivelAtaque;
-        this.puntosVida=puntosVida;
-        this.experiencia=experiencia;
+        puntosVida = vidaEnemigos,
+        experiencia = experienciaEnemigos
+    ) {
+        this.nombre = nombre;
+        this.avatar = avatar;
+        this.nivelAtaque = nivelAtaque;
+        this.puntosVida = puntosVida;
+        this.experiencia = experiencia;
     }
 
-    
+
 }

@@ -12,10 +12,10 @@ import { Producto } from './recursos/Producto.js';
 import { Jugador } from './recursos/Jugador.js';
 import { Enemigos } from './recursos/Enemigos.js';
 import { Jefes } from './recursos/Jefes.js';
-import enemigos from "../datos/enemigos.js";
-import jefes from "../datos/jefes.js";
+import enemigos from "./datos/enemigos.js";
+import jefes from "./datos/jefes.js";
 import { tipoProductos, rarezaProductos } from "./recursos/Constants.js";
-import { personajesBase } from "../datos/personajes.js";
+import { personajesBase } from "./datos/personajes.js";
 
 /** @type {Producto[]} */
 let productos = Mercado.productos;
@@ -47,9 +47,9 @@ let costoTotalCarrito = 0;
 // =========================================================================
 /** @type {HTMLElement} */
 const inputNombre = document.getElementById('input-nombre');
-const inputDefensa=document.getElementById('input-defensa');
+const inputDefensa = document.getElementById('input-defensa');
 const inputAtaque = document.getElementById('input-ataque');
-const inputVida=document.getElementById('input-vida');
+const inputVida = document.getElementById('input-vida');
 /** @type {HTMLElement} */
 const nombreError = document.getElementById('nombre-error');
 const ataqueError = document.getElementById('ataque-error');
@@ -84,23 +84,23 @@ function validarNombre(nombre) {
     }
 }
 
-function validarAtributos(v,d,a){
-    if(v<100){
+function validarAtributos(v, d, a) {
+    if (v < 100) {
         console.log(" vida menor que 100");
         return false;
     }
-    console.log(v+" "+d+" "+a);
-    
-    if(v>=100 && d>=0 && a>=0){
-        console.log((v+d+a));
-        if((v+d+a)>110){
+    console.log(v + " " + d + " " + a);
+
+    if (v >= 100 && d >= 0 && a >= 0) {
+        console.log((v + d + a));
+        if ((v + d + a) > 110) {
             console.log(" suman mas de 110");
             return false;
-        }else{
+        } else {
             console.log("Bien");
             return true;
         }
-    }else{
+    } else {
         console.log(" suman menos de 110");
         return false;
     }
@@ -113,10 +113,10 @@ function actualizarBotonScene0() {
     const btnScene0 = document.getElementById('btn-scene-0');
     if (!btnScene0) return;
     console.log("entramos")
-    console.log("Ataque : "+inputAtaque.value+ " Defensa : "+inputDefensa.value+" Vida: "+inputVida.value);
+    console.log("Ataque : " + inputAtaque.value + " Defensa : " + inputDefensa.value + " Vida: " + inputVida.value);
 
     const nombreValido = validarNombre(inputNombre ? inputNombre.value : '');
-    const atributosValido= validarAtributos(parseInt(inputVida.value),parseInt(inputDefensa.value),parseInt(inputAtaque.value))
+    const atributosValido = validarAtributos(parseInt(inputVida.value), parseInt(inputDefensa.value), parseInt(inputAtaque.value))
     console.log(atributosValido);
     if (personajeSeleccionado && nombreValido && atributosValido) {
         btnScene0.disabled = false;
@@ -704,8 +704,8 @@ const turnoCombate = () => {
         enemigoComb.style.animation = 'slideInRight 1s ease-out 0.2s forwards';
     }, 10);
     const resultado = combate(jugador, enemigoTurno);
-    jugador.dinero+=resultado.dineroGanado;
-    console.log("Dinero del jugador :"+jugador.dinero)
+    jugador.dinero += resultado.dineroGanado;
+    console.log("Dinero del jugador :" + jugador.dinero)
     jugadorComb.src = jugador.avatar;
     enemigoComb.src = "imagenes/" + enemigoTurno.avatar;
 
@@ -753,10 +753,10 @@ const turnoCombate = () => {
 function inicializarEstado() {
     jugador = new Jugador('Cacharro', 'imagenes/personaje.png', 0, 100, 10, 5);
     pintarSelectorPersonaje();
-    
+
     // Limpiar el campo de nombre y el mensaje de error al reiniciar
     const inputNombre = document.getElementById('input-nombre');
-    const inputAtaque=document.getElementById('input-ataque');
+    const inputAtaque = document.getElementById('input-ataque');
     const nombreError = document.getElementById('nombre-error');
     const ataqueError = document.getElementById('ataque-error');
 
@@ -764,7 +764,7 @@ function inicializarEstado() {
     if (nombreError) nombreError.textContent = '';
     if (inputAtaque) inputAtaque.value = '0';
     if (ataqueError) ataqueError.textContent = '';
-    
+
     // Usar la función de actualización de botón para restablecer el estado
     actualizarBotonScene0();
 
@@ -833,9 +833,9 @@ if (btnScene0) {
         if (!personajeSeleccionado) return;
 
         const nombreInput = document.getElementById('input-nombre');
-        const ataqueJ=parseInt(document.getElementById('input-ataque').value);
-        const defensaJ=parseInt(document.getElementById('input-defensa').value);
-        const vidaJ=parseInt(document.getElementById('input-vida').value);
+        const ataqueJ = parseInt(document.getElementById('input-ataque').value);
+        const defensaJ = parseInt(document.getElementById('input-defensa').value);
+        const vidaJ = parseInt(document.getElementById('input-vida').value);
         const nombreTemporal = nombreInput.value.trim();
         let nombreJugador;
 
@@ -855,7 +855,7 @@ if (btnScene0) {
             // usar el nombre por defecto.
             nombreJugador = 'Héroe Anónimo';
         }
-        
+
         jugador = new Jugador(
             nombreJugador,
             personajeSeleccionado.avatar,
@@ -905,7 +905,7 @@ if (btnComprar) {
             inventario.push(p);
             console.log(`Has comprado: ${p.nombre} por ${p.precio}`);
         });
-        jugador.dinero=saldoActual;
+        jugador.dinero = saldoActual;
         carrito = [];
         costoTotalCarrito = 0;
 
@@ -953,8 +953,8 @@ if (btnScene5) {
             }
             const puntoTotalElement = document.getElementById("puntoTotal");
             if (puntoTotalElement) {
-                let puntuacionTotal=jugador.dinero+jugador.puntuacion;
-                puntoTotalElement.textContent = "Puntos totales ganados: " + puntuacionTotal+" (dinero: "+jugador.dinero+" ,experiencia: "+jugador.puntuacion+" )";
+                let puntuacionTotal = jugador.dinero + jugador.puntuacion;
+                puntoTotalElement.textContent = "Puntos totales ganados: " + puntuacionTotal + " (dinero: " + jugador.dinero + " ,experiencia: " + jugador.puntuacion + " )";
             }
 
             guardarPartida();
@@ -999,18 +999,18 @@ if (btnScene7) {
 const imprimirResultados = document.getElementById("imprimirResultados");
 if (imprimirResultados) {
     imprimirResultados.addEventListener('click', () => {
-    let records = JSON.parse(localStorage.getItem('recordsJuego')) || [];
+        let records = JSON.parse(localStorage.getItem('recordsJuego')) || [];
 
-    records.sort((a, b) => b.puntos - a.puntos);
+        records.sort((a, b) => b.puntos - a.puntos);
 
-    records.forEach(jugador => {
-        console.log("El jugador :"+jugador.usuario+" puntuacion : "+jugador.puntos+" ,Dinero: "+jugador.dinero+" fecha: "+jugador.fecha)
+        records.forEach(jugador => {
+            console.log("El jugador :" + jugador.usuario + " puntuacion : " + jugador.puntos + " ,Dinero: " + jugador.dinero + " fecha: " + jugador.fecha)
 
-    });
+        });
 
-    if (records.length === 0) {
-        console.log("No hay partidas guardadas")
-    }
+        if (records.length === 0) {
+            console.log("No hay partidas guardadas")
+        }
     });
 }
 

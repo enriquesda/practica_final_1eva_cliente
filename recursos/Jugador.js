@@ -1,4 +1,4 @@
-import { vidaInicial } from "./constants.js";
+import { vidaInicial } from "./Constants.js";
 /**
  * La clase principal para manejar al jugador.
  * Guarda las stats, el inventario y la puntuacion del juego.
@@ -30,15 +30,15 @@ export class Jugador {
      * @param {number} ataqueBase - El ataque base del personaje al empezar.
      * @param {number} defensaBase - La defensa base del personaje al empezar.
      */
-    constructor(nombre, avatar, puntos = 0, vidaBase, ataqueBase, defensaBase,dinero=500) {
+    constructor(nombre, avatar, puntos = 0, vidaBase, ataqueBase, defensaBase, dinero = 500) {
         this.nombre = nombre;
         this.avatar = avatar;
         this.puntos = puntos;
-        this.vida = vidaBase; 
+        this.vida = vidaBase;
         this.ataque = ataqueBase;
         this.defensa = defensaBase;
-        this.dinero=dinero;
-        
+        this.dinero = dinero;
+
         this.actualizarEstadisticas();
     }
 
@@ -57,7 +57,7 @@ export class Jugador {
      * Calcula la vida maxima sumando el bonus de los consumibles del inventario a la vida base.
      */
     obtenerVidaTotal() {
-        this.vidaTotal = this.vida; 
+        this.vidaTotal = this.vida;
         this.inventario.forEach(producto => {
             if (producto.tipo == "consumible") this.vidaTotal += producto.obtenerBonus();
         });

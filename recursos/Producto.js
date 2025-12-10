@@ -1,4 +1,4 @@
-import { rarezaProductos, tipoProductos } from "./constants.js";
+import { rarezaProductos, tipoProductos } from "./Constants.js";
 /**
  * Clase para crear todos los objetos que se pueden comprar en la tienda.
  * @class
@@ -51,7 +51,7 @@ export class Producto {
         }
         this.bonus = bonus;
     }
-    
+
     /**
      * Devuelve el precio del producto en un formato de texto con simbolo de euro.
      * Esto está mal porque el precio es en monedas del juego, no euros.
@@ -60,19 +60,19 @@ export class Producto {
     formatearAtributos() {
         return `${(this.precio / 100).toFixed(2)}€`;
     }
-    
+
     /**
      * Devuelve el valor del bonus del objeto aplicado segun su rareza.
      * @returns {number} El bonus total del objeto.
      */
-    obtenerBonus(){
-        switch(this.rareza){
+    obtenerBonus() {
+        switch (this.rareza) {
             case 'comun':
-                return this.bonus*1;
+                return this.bonus * 1;
             case 'rara':
-                return this.bonus*1.5;
+                return this.bonus * 1.5;
             case 'legendaria':
-                return this.bonus*2;
+                return this.bonus * 2;
         }
     }
 
